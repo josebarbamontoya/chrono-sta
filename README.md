@@ -14,10 +14,12 @@ git clone --recursive https://github.com/josebarbamontoya/chrono-sta
 Python3 is required.
 
 Install Python repositories required:
+
 pip3 install rpy2
 ...
 
 Intall R repositories required:
+
 install.packages("ape")
 install.packages("phytools")
 
