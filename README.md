@@ -11,7 +11,7 @@ To download Chrono-STA, use git, and clone with `--recursive`:
 git clone --recursive https://github.com/josebarbamontoya/chrono-sta
 ```
 
-Use if Chrono-STA requires Python 3 and the following Python and R pachages. Install them in advance before using the program.
+Use if Chrono-STA requires Python 3 and the following Python and R pachages. Install them in advance before using the `chronosta.py` script.
 
 To download and install Python 3, follow the instructions provided on the official Python website:
 	https://www.python.org/downloads/
@@ -37,9 +37,9 @@ Install the required R packages. In an R session, type:
 
 ## Execution
 
-1.	Create a directory and copy the partial timetrees in Newick format with the suffix `.nwk`, along with the `chronosta.py` program:
+1.	Create a directory and copy the partial timetrees in Newick format with the suffix `.nwk`, along with the `chronosta.py` script:
 
-2.	In a terminal or command prompt session, type `cd` followed by the path to the directory to change the working directory to the folder that contains the `chronosta.py` program:	
+2.	In a terminal or command prompt session, type `cd` followed by the path to the directory to change the working directory to the folder that contains the `chronosta.py` script:	
 ```
 cd /Users/barba/chronosta_example
 ```
