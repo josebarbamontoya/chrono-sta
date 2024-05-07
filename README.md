@@ -37,7 +37,7 @@ Install the required R packages. In an R session, type:
 
 ## Execution
 
-1.	Create a directory and copy the partial timetrees in Newick format with the suffix `.nwk`, along with the `chronosta.py` script:
+1.	Create a directory (e.g., `chronsta_example`) and copy the partial timetrees in Newick format with the suffix `.nwk`, along with the `chronosta.py` script:
 
 2.	In a terminal or command prompt session, type `cd` followed by the path to the directory to change the working directory to the folder that contains the `chronosta.py` script:	
 ```
@@ -56,7 +56,7 @@ python3 chronosta.py
 - `clusters_and_pairwise_distances_list.csv` contains information about the clusters inferred during the construction of the supertree, along with their pairwise distances. 
 - `final_pairwise_distance_matrix.csv` contains the final pairwise distance matrix computed from the list of clusters and pairwise distances. Note that this tree underwent ultrametricization due to branch length rounding. This was done to ensure uniform branch lengths from the root to the tips in the timetree.
 - `supertree_from_final_pairwise_distance_matrix.newick` contains the supertree constructed from the final pairwise distance matrix in Newick format.
-- `chronosta_supertimetree_pairwise_distance_matrix.csv `contains the pairwise distance matrix computed from the Chrono-STA supertimetree.
+- `chronosta_supertimetree_pairwise_distance_matrix.csv` contains the pairwise distance matrix computed from the Chrono-STA supertimetree.
 - **`chronosta_supertimetree.newick `** contains the Chrono-STA supertimetree in Newick format.
 
 ---
