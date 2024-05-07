@@ -51,7 +51,7 @@ python3 chronosta.py
 
 ## Output files
 
-- suffix `_pd_matrix.csv` denotes files containing the pairwise distance matrix computed for each partial timetree.
+- `_pd_matrix.csv` suffix denotes files containing the pairwise distance matrix computed for each partial timetree.
 - `combo_matrix.csv` contains the cumulative average pairwise distance matrix computed from partial timetrees. 
 - `clusters_and_pairwise_distances_list.csv` contains information about the clusters inferred during the construction of the supertree, along with their pairwise distances. 
 - `final_pairwise_distance_matrix.csv` contains the final pairwise distance matrix computed from the list of clusters and pairwise distances. Note that this tree underwent ultrametricization due to branch length rounding. This was done to ensure uniform branch lengths from the root to the tips in the timetree.
