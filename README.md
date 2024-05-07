@@ -11,22 +11,39 @@ To download Chrono-STA, use git, and clone with `--recursive`:
 git clone --recursive https://github.com/josebarbamontoya/chrono-sta
 ```
 
-Python3 is required.
+Chrono-STA requires Python 3 and the following Python and R pachages. Install them in advance before using the program.
 
-Install Python repositories required:
+To download and install Python 3, follow the instructions provided on the official Python website:
+	https://www.python.org/downloads/
 
+Install the required Python packages. In a terminal session, type:
+
+	pip3 install os
+	pip3 install Bio
+	pip3 install Bio.Phylo.TreeConstruction 
+	pip3 install pandas
+	pip3 install numpy
+	pip3 install scipy.spatial.distance
+	pip3 install scipy.cluster 
+	pip3 install matplotlib.pyplot 
+	pip3 install csv
+	pip3 install sys
 	pip3 install rpy2
-...
 
-Intall R repositories required:
+Install the required R packages. In your R session, type::
 
 	install.packages("ape")
 	install.packages("phytools")
 
-
 ## Execution
 
-To execute the analysis:
+In a terminal or command prompt session, type `cd` followed by the path to the directory to change the working directory to the folder that contains the `chronosta.py` program:
+
+	```
+	cd /Users/barba/chronosta_example
+	```
+
+To execute the CHrono-STA analysis type:
 ```
 python3 chronosta.py
 ```
