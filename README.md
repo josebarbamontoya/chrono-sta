@@ -6,7 +6,7 @@ Chrono-STA is a  method that incorporates the phylogenetic time dimension to con
 
 Chrono-STA is suported on Windows, Unix, and macOS.
 
-To download Chrono-STA, use git, and clone with --recursive:
+To download Chrono-STA, use git, and clone with `--recursive`:
 ```
 git clone --recursive https://github.com/josebarbamontoya/chrono-sta
 ```
@@ -15,13 +15,13 @@ Python3 is required.
 
 Install Python repositories required:
 
-pip3 install rpy2
+	pip3 install rpy2
 ...
 
 Intall R repositories required:
 
-install.packages("ape")
-install.packages("phytools")
+	install.packages("ape")
+	install.packages("phytools")
 
 
 ## Execution
