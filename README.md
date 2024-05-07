@@ -37,11 +37,10 @@ Install the required R packages. In your R session, type::
 
 ## Execution
 
-In a terminal or command prompt session, type `cd` followed by the path to the directory to change the working directory to the folder that contains the `chronosta.py` program:
-
-	```
-	cd /Users/barba/chronosta_example
-	```
+In a terminal or command prompt session, type `cd` followed by the path to the directory to change the working directory to the folder that contains the `chronosta.py` program:	
+```
+cd /Users/barba/chronosta_example
+```
 
 To execute the CHrono-STA analysis type:
 ```
