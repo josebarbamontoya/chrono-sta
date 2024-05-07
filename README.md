@@ -57,7 +57,7 @@ python3 chronosta.py
 - `final_pairwise_distance_matrix.csv` contains the final pairwise distance matrix computed from the list of clusters and pairwise distances.
 - `supertree_from_final_pairwise_distance_matrix.newick` contains the supertree constructed from the final pairwise distance matrix in Newick format.
 - `chronosta_supertimetree_pairwise_distance_matrix.csv `contains the pairwise distance matrix computed from the Chrono-STA supertimetree.
-- `chronosta_supertimetree.newick `contains the Chrono-STA supertimetree in Newick format. Note that supertree_from_final_pairwise_distance_matrix.newick underwent ultrametricization due to branch length rounding. This was done to ensure uniform branch lengths from the root to the tips in the timetree.
+- **`chronosta_supertimetree.newick `**contains the Chrono-STA supertimetree in Newick format. Note that supertree_from_final_pairwise_distance_matrix.newick underwent ultrametricization due to branch length rounding. This was done to ensure uniform branch lengths from the root to the tips in the timetree.
 
 
 ---
