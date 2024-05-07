@@ -4,7 +4,7 @@ Chrono-STA is a  method that incorporates the phylogenetic time dimension to con
 
 ## Installation
 
-Chrono-STA is suported is suported on Windows, Unix, and macOS.
+Chrono-STA is suported on Windows, Unix, and macOS.
 
 To download Chrono-STA, use git, and clone with --recursive:
 ```
