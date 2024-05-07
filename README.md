@@ -39,14 +39,14 @@ Install the required R packages. In an R session, type:
 
 **Unix and macOS**
 
-1.	Create a directory (e.g., `chronosta_example`) and copy the partial timetrees in Newick format with the extention `.nwk`, along with the `chronosta.py` script:
+1.	In a terminal, create a directory (e.g., `chronosta_example`) and copy the partial timetrees in Newick format with the extention `.nwk`, along with the `chronosta.py` script:
 ```
 mkdir chronosta_example
 cp *.nwk /Users/barba/chronosta_example
 cp chronosta.py /Users/barba/chronosta_example
 ```
 
-2.	In a terminal or command prompt session, type `cd` followed by the path to the directory to change the working directory to the folder that contains the `chronosta.py` script:	
+2.	Type `cd` followed by the path to the directory to change the working directory to the folder that contains the `chronosta.py` script:	
 ```
 cd /Users/barba/chronosta_example
 ```
@@ -58,14 +58,14 @@ python3 chronosta.py
 
 **Windows**
 
-1.	Create a directory (e.g., `chronosta_example`) and copy the partial timetrees in Newick format with the extention `.nwk`, along with the `chronosta.py` script:
+1.	In a command prompt, create a directory (e.g., `chronosta_example`) and copy the partial timetrees in Newick format with the extention `.nwk`, along with the `chronosta.py` script:
 ```
 mkdir chronosta_example
 copy *.nwk C:\Users\barba\chronosta_example
 copy chronosta.py C:\Users\barba\chronosta_example
 ```
 
-2.	In a terminal or command prompt session, type `cd` followed by the path to the directory to change the working directory to the folder that contains the `chronosta.py` script:	
+2.	Type `cd` followed by the path to the directory to change the working directory to the folder that contains the `chronosta.py` script:	
 ```
 cd C:\Users\barba\chronosta_example
 ```
