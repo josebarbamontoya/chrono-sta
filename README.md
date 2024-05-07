@@ -37,14 +37,14 @@ Install the required R packages. In an R session, type:
 
 ## Execution
 
-Create a directory and copy the partial timetrees in Newick format with the suffix `.nwk`, along with the `chronosta.py` program:
+1.	Create a directory and copy the partial timetrees in Newick format with the suffix `.nwk`, along with the `chronosta.py` program:
 
-In a terminal or command prompt session, type `cd` followed by the path to the directory to change the working directory to the folder that contains the `chronosta.py` program:	
+2.	In a terminal or command prompt session, type `cd` followed by the path to the directory to change the working directory to the folder that contains the `chronosta.py` program:	
 ```
 cd /Users/barba/chronosta_example
 ```
 
-To execute the Chrono-STA analysis type:
+3.	To execute the Chrono-STA analysis type:
 ```
 python3 chronosta.py
 ```
