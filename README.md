@@ -30,7 +30,7 @@ Install the required Python packages. In a terminal session, type:
 	pip3 install sys
 	pip3 install rpy2
 
-Install the required R packages. In your R session, type::
+Install the required R packages. In an R session, type:
 
 	install.packages("ape")
 	install.packages("phytools")
