@@ -42,7 +42,7 @@ In a terminal or command prompt session, type `cd` followed by the path to the d
 cd /Users/barba/chronosta_example
 ```
 
-To execute the CHrono-STA analysis type:
+To execute the Chrono-STA analysis type:
 ```
 python3 chronosta.py
 ```
