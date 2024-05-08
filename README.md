@@ -18,16 +18,11 @@ To download and install Python 3, follow the instructions provided on the offici
 
 Install the required Python packages. In a terminal or command prompt session, type:
 
-	pip3 install os
-	pip3 install Bio
-	pip3 install Bio.Phylo.TreeConstruction 
+	pip3 install biopython
 	pip3 install pandas
 	pip3 install numpy
-	pip3 install scipy.spatial.distance
-	pip3 install scipy.cluster 
-	pip3 install matplotlib.pyplot 
-	pip3 install csv
-	pip3 install sys
+	pip3 install scipy
+	pip3 install matplotlib
 	pip3 install rpy2
 
 Install the required R packages. In an R session, type:
