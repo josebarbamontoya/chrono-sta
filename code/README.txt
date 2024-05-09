@@ -37,7 +37,6 @@ Windows
 
     python3 chronosta.py
 
-
 For questions or comments please contact:
 
 jbarba@amnh.org
