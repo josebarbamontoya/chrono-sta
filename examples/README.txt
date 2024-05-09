@@ -1,13 +1,15 @@
 This directory contains data files analyzed in:
 
-Barba-Montoya et al. (2024). Molecular timetrees using relaxed clocks and uncertain phylogenies. https://doi.org/...
+Barba-Montoya et al. (2024). Assembling the tree of life through the integration of chronology and phylogeny. https://doi.org/...
 
-One directory for computer simulated data, and one directory for empirical phylogenomic data:
+Four directories containing example datasets:
 
-	empirical_data
-	simulated_data
+	06_subtree_supertree -> simulated dataset
+	10_gene_speciestree -> simulated dataset
+	14_subtree_supertree -> emprical dataset from Álvarez-Carretero et al. (2022)
+	1000_gene_speciestree -> emprical dataset from Álvarez-Carretero et al. (2022)
 
 For questions or comments please contact:
 
-j.barba@temple.edu
+jbarba@amnh.org
 
