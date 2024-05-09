@@ -2,7 +2,7 @@ Running chronosta.py
 
 Ensure that Python 3, is installed along with the Pyhton and R packages indicated in the installation instructions.
 
-**Unix and macOS**
+Unix and macOS
 
 1.	In a terminal, create a directory (e.g., `chronosta_example`) and copy the partial timetrees in Newick format with the extention `.nwk`, along with the `chronosta.py` script:
 
@@ -21,7 +21,7 @@ Ensure that Python 3, is installed along with the Pyhton and R packages indicate
     python3 chronosta.py
 
 
-**Windows**
+Windows
 
 1.	In a command prompt, create a directory (e.g., `chronosta_example`) and copy the partial timetrees in Newick format with the extention `.nwk`, along with the `chronosta.py` script:
 
