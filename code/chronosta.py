@@ -589,7 +589,6 @@ if __name__ == "__main__":
     ##### export final pairwise distance matrix as a CSV file
     final_pairwise_matrix.to_csv("chronosta_supertimetree_pairwise_distance_matrix.csv", index=True, header=True, na_rep='NaN')
 
-
 ####################################################################################################
 ##### end of the algorithm #########################################################################
 ####################################################################################################
