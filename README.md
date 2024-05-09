@@ -47,7 +47,7 @@ cp chronosta.py /Users/barba/chronosta_example
 cd /Users/barba/chronosta_example
 ```
 
-3.	To execute the Chrono-STA analysis type:
+3.	To execute the Chrono-STA analysis, type:
 ```
 python3 chronosta.py
 ```
@@ -66,7 +66,7 @@ copy chronosta.py C:\Users\barba\chronosta_example
 cd C:\Users\barba\chronosta_example
 ```
 
-3.	To execute the Chrono-STA analysis type:
+3.	To execute the Chrono-STA analysis, type:
 ```
 python3 chronosta.py
 ```
