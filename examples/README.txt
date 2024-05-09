@@ -2,7 +2,7 @@ This directory contains data files analyzed in:
 
 Barba-Montoya et al. (2024). Assembling the tree of life through the integration of chronology and phylogeny. https://doi.org/...
 
-Four directories containing example datasets:
+Four directories containing example datasets: perro
 
 	06_subtree_supertree -> simulated data (dataset 02) from Barba-Montoya et al. (2024)
 	10_genetree_speciestree -> simulated data (dataset 05) from Barba-Montoya et al. (2024)
