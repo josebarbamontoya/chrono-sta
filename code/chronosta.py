@@ -91,7 +91,7 @@ for tree_file in tree_files:
     #print("square_matrix:")
     #print(matrix)
 
-    ##### export matrix as CSV file
+    ##### export matrix as csv file
     matrix.to_csv(f'{os.path.splitext(tree_file)[0]}_pd_matrix.csv', index=True, header=True, na_rep='NaN')
 
     ##### append the matrix to the list
@@ -372,7 +372,7 @@ while len(condensed_matrix) > 1:
     ##### store cluster information in the clusters DataFrame
     clusters.loc[len(clusters)] = [sister_pair[0], sister_pair[1], min_distance]
 
-##### Eeport clusters as a CSV file
+##### Eeport clusters as a csv file
 clusters.to_csv("clusters_and_pairwise_distances_list.csv", index=False)
 
 ##### display the list of clusters and pairwise distances
@@ -406,7 +406,7 @@ final_pairwise_matrix = final_pairwise_matrix.astype(float)
 #print("final_pairwise_matrix:")
 #print(final_pairwise_matrix)
 
-##### export final_pairwise_matrix as a CSV file
+##### export final_pairwise_matrix as a csv file
 final_pairwise_matrix.to_csv("final_pairwise_distance_matrix.csv", index=True, header=True, na_rep='NaN')
 
 ####################################################################################################
@@ -586,7 +586,7 @@ if __name__ == "__main__":
     #print("\nFinal Pairwise Distance Matrix:")
     #print(final_pairwise_matrix)
 
-    ##### export final pairwise distance matrix as a CSV file
+    ##### export final pairwise distance matrix as a csv file
     final_pairwise_matrix.to_csv("chronosta_supertimetree_pairwise_distance_matrix.csv", index=True, header=True, na_rep='NaN')
 
 ####################################################################################################
