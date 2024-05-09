@@ -4,7 +4,7 @@ Ensure that Python 3, is installed along with the Pyhton and R packages indicate
 
 Unix and macOS
 
-1. In a terminal, create a directory (e.g., `chronosta_example`) and copy the partial timetrees in Newick format with the extention `.nwk`, along with the `chronosta.py` script:
+1. In a terminal, create a directory (e.g., `1000_gene_speciestree`) and copy the partial timetrees in Newick format with the extention `.nwk`, along with the `chronosta.py` script:
 
     mkdir /Users/barba/examples/1000_gene_speciestree
     cp *.nwk /Users/barba/examples/1000_gene_speciestree
@@ -21,7 +21,7 @@ Unix and macOS
 
 Windows
 
-1. In a command prompt, create a directory (e.g., `chronosta_example`) and copy the partial timetrees in Newick format with the extention `.nwk`, along with the `chronosta.py` script:
+1. In a command prompt, create a directory (e.g., `1000_gene_speciestree`) and copy the partial timetrees in Newick format with the extention `.nwk`, along with the `chronosta.py` script:
 
     mkdir C:\Users\barba\examples\1000_gene_speciestree
     copy *.nwk C:\Users\barba\examples\1000_gene_speciestree
