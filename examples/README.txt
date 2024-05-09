@@ -12,4 +12,3 @@ Four directories containing example datasets:
 For questions or comments please contact:
 
 jbarba@amnh.org
-
