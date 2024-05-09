@@ -4,7 +4,7 @@ Chrono-STA is a  method that incorporates the phylogenetic time dimension to con
 
 ## Installation
 
-Chrono-STA is suported on Windows, Unix, and macOS.
+Chrono-STA is suported on Unix, macOS, and Windows.
 
 To download Chrono-STA, use git, and clone with `--recursive`:
 ```
@@ -37,14 +37,14 @@ Install the required R packages. In an R session, type:
 
 1.	In a terminal, create a directory (e.g., `chronosta_example`) and copy the partial timetrees in Newick format with the extention `.nwk`, along with the `chronosta.py` script:
 ```
-mkdir chronosta_example
-cp *.nwk /Users/barba/chronosta_example
-cp chronosta.py /Users/barba/chronosta_example
+mkdir /Users/barba/examples/1000_gene_speciestree
+cp *.nwk /Users/barba/examples/1000_gene_speciestree
+cp chronosta.py /Users/barba/examples/1000_gene_speciestree
 ```
 
 2.	Type `cd` followed by the path to the directory to change the working directory to the folder that contains the `chronosta.py` script:	
 ```
-cd /Users/barba/chronosta_example
+cd /Users/barba/examples/1000_gene_speciestree
 ```
 
 3.	To execute the Chrono-STA analysis, type:
@@ -56,14 +56,14 @@ python3 chronosta.py
 
 1.	In a command prompt, create a directory (e.g., `chronosta_example`) and copy the partial timetrees in Newick format with the extention `.nwk`, along with the `chronosta.py` script:
 ```
-mkdir chronosta_example
-copy *.nwk C:\Users\barba\chronosta_example
-copy chronosta.py C:\Users\barba\chronosta_example
+mkdir C:\Users\barba\examples\1000_gene_speciestree
+copy *.nwk C:\Users\barba\examples\1000_gene_speciestree
+copy chronosta.py C:\Users\barba\examples\1000_gene_speciestree
 ```
 
 2.	Type `cd` followed by the path to the directory to change the working directory to the folder that contains the `chronosta.py` script:	
 ```
-cd C:\Users\barba\chronosta_example
+cd C:\Users\barba\examples\1000_gene_speciestree
 ```
 
 3.	To execute the Chrono-STA analysis, type:
