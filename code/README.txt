@@ -10,7 +10,6 @@ Unix and macOS
     cp *.nwk /Users/barba/examples/1000_gene_speciestree
     cp chronosta.py /Users/barba/examples/1000_gene_speciestree
 
-
 2. Type `cd` followed by the path to the directory to change the working directory to the folder that contains the `chronosta.py` script:	
 
     cd /Users/barba/examples/1000_gene_speciestree
@@ -19,7 +18,6 @@ Unix and macOS
 3. To execute the Chrono-STA analysis, type:
 
     python3 chronosta.py
-
 
 Windows
 
