@@ -133,7 +133,7 @@ for index, expanded_matrix in enumerate(expanded_matrices):
     ##### generate a unique file name for each expanded matrix
     file_name = f'expanded_matrix_{index}.csv'
     
-    ##### export the expanded matrix as a CSV file
+    ##### export the expanded matrix as a csv file
     #expanded_matrix.to_csv(file_name, index=True, header=True, na_rep='NaN')
 
 ##### print the combo matrix
