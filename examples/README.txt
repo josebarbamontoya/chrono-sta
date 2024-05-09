@@ -6,8 +6,8 @@ Four directories containing example datasets:
 
 	06_subtree_supertree -> simulated dataset
 	10_gene_speciestree -> simulated dataset
-	14_subtree_supertree -> emprical dataset from Álvarez-Carretero et al. (2022)
-	1000_gene_speciestree -> emprical dataset from Álvarez-Carretero et al. (2022)
+	14_subtree_supertree -> mammal dataset from Álvarez-Carretero et al. (2022)
+	1000_gene_speciestree -> mammal dataset from Álvarez-Carretero et al. (2022)
 
 For questions or comments please contact:
 
