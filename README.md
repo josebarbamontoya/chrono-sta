@@ -37,7 +37,7 @@ Install the required R packages. In an R session, type:
 
 **Unix and macOS**
 
-1.	In a terminal, create a directory (e.g., `1000_genetree_speciestree`) and copy the partial timetrees in Newick format with the extention `.nwk`, along with the `chronosta.py` script:
+1.	In a terminal, create a directory (e.g., `1000_genetree_speciestree`) and copy the sub-timetrees in Newick format with the extention `.nwk`, along with the `chronosta.py` script:
 ```
 mkdir /Users/barba/examples/1000_genetree_speciestree
 cp *.nwk /Users/barba/examples/1000_genetree_speciestree
@@ -56,7 +56,7 @@ python3 chronosta.py
 
 **Windows**
 
-1.	In a command prompt, create a directory (e.g., `1000_genetree_speciestree`) and copy the partial timetrees in Newick format with the extention `.nwk`, along with the `chronosta.py` script:
+1.	In a command prompt, create a directory (e.g., `1000_genetree_speciestree`) and copy the sub-timetrees in Newick format with the extention `.nwk`, along with the `chronosta.py` script:
 ```
 mkdir C:\Users\barba\examples\1000_genetree_speciestree
 copy *.nwk C:\Users\barba\examples\1000_genetree_speciestree
@@ -75,8 +75,8 @@ python3 chronosta.py
 
 ## Output files
 
-- `_pd_matrix.csv` suffix denotes files containing the pairwise distance matrix computed for each partial timetree.
-- `combo_matrix.csv` contains the cumulative average pairwise distance matrix computed from partial timetrees. 
+- `_pd_matrix.csv` suffix denotes files containing the pairwise distance matrix computed for each sub-timetree.
+- `combo_matrix.csv` contains the cumulative average pairwise distance matrix computed from sub-timetrees. 
 - `clusters_and_pairwise_distances_list.csv` contains information about the clusters inferred during the construction of the supertree, along with their pairwise distances. 
 - `final_pairwise_distance_matrix.csv` contains the final pairwise distance matrix computed from the list of clusters and pairwise distances.
 - `supertree_from_final_pairwise_distance_matrix.newick` contains the supertree constructed from the final pairwise distance matrix in Newick format. This supertree is ultrametricized using non-negative least squares, ensuring uniform branch lengths from root to tips by minimizing the sum-of-squares distance between input and output timetrees
