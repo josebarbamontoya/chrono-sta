@@ -2,8 +2,6 @@
 
 Chrono-STA is a  method that incorporates the phylogenetic time dimension to construct supertrees, making it robust even when species overlap between phylogenies is low. For a more detailed explanation of the method, please read our manuscript (DOI: doi.org/...).
 
-
-
 ## Installation
 
 Chrono-STA is suported on Unix, macOS, and Windows.
@@ -13,7 +11,7 @@ To download Chrono-STA, use git, and clone with `--recursive`. In a terminal or 
 git clone --recursive https://github.com/josebarbamontoya/chrono-sta
 ```
 
-Use of Chrono-STA requires Python 3 and the following Python and R pachages. Install them in advance before using the `chronosta.py` script.
+Use of Chrono-STA requires Python 3 and the following Python and R pachages. Install them before using the `chronosta.py` script.
 
 To download and install Python 3, follow the instructions provided on the official Python website:
 	https://www.python.org/downloads/
