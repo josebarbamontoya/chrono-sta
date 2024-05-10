@@ -510,7 +510,7 @@ with open("chronosta_supertimetree.newick", "r") as f:
 print("Chrono-STA supertimetree:")
 print(newick_tree2)
 
-##### gebnerate paiwise distance matrix from chronosta_supertimetree.newic
+##### generate pairwise distance matrix from chronosta_supertimetree.newick
 def parse_newick_tree_from_file(newick_file):
     """
     parse Newick tree from file
@@ -547,7 +547,7 @@ def clusters_to_pairwise_matrix(clusters):
         lineages.update(row['lineage_b'].split(','))
     
     lineages = sorted(lineages)
-    final_pairwise_matrix = pd.DataFrame(np.nan, index=lineages, columns=lineages)
+    chronosta_pairwise_matrix = pd.DataFrame(np.nan, index=lineages, columns=lineages)
 
     for index, row in clusters.iterrows():
         lineage_a = row['lineage_a']
@@ -559,10 +559,10 @@ def clusters_to_pairwise_matrix(clusters):
 
         for a in lineages_a:
             for b in lineages_b:
-                final_pairwise_matrix.at[a, b] = distance
-                final_pairwise_matrix.at[b, a] = distance
+                chronosta_pairwise_matrix.at[a, b] = distance
+                chronosta_pairwise_matrix.at[b, a] = distance
 
-    return final_pairwise_matrix
+    return chronosta_pairwise_matrix
 
 if __name__ == "__main__":
 
@@ -580,14 +580,14 @@ if __name__ == "__main__":
 
     ##### convert clusters into a square pairwise distance matrix
     df = pd.DataFrame(pairwise_distances, columns=['lineage_a', 'lineage_b', 'pairwise_distance'])
-    final_pairwise_matrix = clusters_to_pairwise_matrix(df)
+    chronosta_pairwise_matrix = clusters_to_pairwise_matrix(df)
 
     ##### display the pairwise distance matrix
-    #print("\nFinal Pairwise Distance Matrix:")
-    #print(final_pairwise_matrix)
+    #print("\Chrono-STA Pairwise Distance Matrix:")
+    #print(chronosta_pairwise_matrix)
 
     ##### export final pairwise distance matrix as a csv file
-    final_pairwise_matrix.to_csv("chronosta_supertimetree_pairwise_distance_matrix.csv", index=True, header=True, na_rep='NaN')
+    chronosta_pairwise_matrix.to_csv("chronosta_supertimetree_pairwise_distance_matrix.csv", index=True, header=True, na_rep='NaN')
 
 ####################################################################################################
 ##### end of the algorithm #########################################################################
