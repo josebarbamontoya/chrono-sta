@@ -6,8 +6,6 @@ Unix and macOS
 
 1. In a terminal, create a directory (e.g., '1000_gene_speciestree') and copy the sub-timetrees in Newick format with the extension .nwk, along with the 'chronosta.py' script located inside the 'code' directory:
 
-In a terminal, create a directory (e.g., '1000_gene_speciestree') and copy the sub-timetrees in Newick format with the extension .nwk, along with the 'chronosta.py' script located inside the 'code' directory:
-
     mkdir /Users/barba/chrono-sta/examples/1000_gene_speciestree
     cp *.nwk /Users/barba/chrono-sta/examples/1000_gene_speciestree
     cp chronosta.py /Users/barba/chrono-sta/examples/1000_gene_speciestree
