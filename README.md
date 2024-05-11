@@ -35,7 +35,7 @@ Install the required R packages. In an R session, type:
 
 **Unix and macOS**
 
-1.	In a terminal, create a directory (e.g., `1000_genetree_speciestree`) and copy the sub-timetrees in Newick format with the extention `.nwk`, along with the `chronosta.py` script:
+1.	In a terminal, create a directory (e.g., `1000_genetree_speciestree`) and copy the sub-timetrees in Newick format with the extention `.nwk`, along with the `chronosta.py` script within **code** directory:
 ```
 mkdir /Users/barba/chrono-sta/examples/1000_genetree_speciestree
 cp *.nwk /Users/barba/chrono-sta/examples/1000_genetree_speciestree
