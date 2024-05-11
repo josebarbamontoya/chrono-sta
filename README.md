@@ -42,7 +42,7 @@ cp *.nwk /Users/barba/chrono-sta/examples/1000_genetree_speciestree
 cp chronosta.py /Users/barba/chrono-sta/examples/1000_genetree_speciestree
 ```
 
-2.	Type `cd` followed by the path to the directory to change the working directory to the folder that contains the `chronosta.py` script:	
+2.	Type `cd` followed by the path to the created directory to change the working directory to the folder that contains the `chronosta.py` script:	
 ```
 cd /Users/barba/examples/chrono-sta/1000_genetree_speciestree
 ```
@@ -61,7 +61,7 @@ copy *.nwk C:\Users\barba\chrono-sta\examples\1000_genetree_speciestree
 copy chronosta.py C:\Users\barba\chrono-sta\examples\1000_genetree_speciestree
 ```
 
-2.	Type `cd` followed by the path to the directory to change the working directory to the folder that contains the `chronosta.py` script:	
+2.	Type `cd` followed by the path to the created directory to change the working directory to the folder that contains the `chronosta.py` script:	
 ```
 cd C:\Users\barba\chrono-sta\examples\1000_genetree_speciestree
 ```
