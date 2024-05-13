@@ -20,6 +20,8 @@ import csv
 import sys
 import rpy2
 from ete3 import Tree
+import rpy2.robjects as robjects
+from rpy2.robjects.packages import importr
 
 def main():
     ##### get the directory containing the script
@@ -28,7 +30,7 @@ def main():
     os.chdir(script_dir)
 
 ####################################################################################################
-##### part1 ########################################################################################
+##### part01 #######################################################################################
 ##### build initial/partial time distance matrices #################################################
 ####################################################################################################
 
@@ -94,7 +96,7 @@ for tree_file in tree_files:
     matrices.append(matrix)
 
 ####################################################################################################
-##### part2 ########################################################################################
+##### part02 #######################################################################################
 ##### combine matrices and expand to match combined matrix #########################################
 ####################################################################################################
 
@@ -161,7 +163,7 @@ combo_matrix = combo_matrix / count_matrix
 combo_matrix.to_csv('combo_matrix.csv', index=True, header=True, na_rep='NaN')
 
 ####################################################################################################
-##### part3 ########################################################################################
+##### part03 #######################################################################################
 ##### populate expanded matrices, compute final matrix, and clusters list ##########################
 ####################################################################################################
 
@@ -406,7 +408,7 @@ final_pairwise_matrix = final_pairwise_matrix.astype(float)
 final_pairwise_matrix.to_csv("final_pairwise_distance_matrix.csv", index=True, header=True, na_rep='NaN')
 
 ####################################################################################################
-##### part4 ########################################################################################
+##### part04 #######################################################################################
 ##### construct upgma supertree from final pairwuse matrix #########################################
 ####################################################################################################
 
@@ -427,7 +429,7 @@ dendrogram = hierarchy.dendrogram(upgma, labels=final_pairwise_matrix_no_nans.co
 plt.xlabel('Samples', fontsize=12)
 plt.ylabel('Time', fontsize=12)
 plt.title('Chrono-STA supertimetree', fontsize=14)
-plt.tight_layout()  # Adjust margins and layout for better appearance
+plt.tight_layout()
 #plt.show()
 
 ##### define function
@@ -476,12 +478,6 @@ with open('supertimetree_from_final_pairwise_distance_matrix.newick', 'w') as fi
 ####################################################################################################
 ##### make supertimetree ultrametric ###############################################################
 ####################################################################################################
-
-import rpy2.robjects as robjects
-from rpy2.robjects.packages import importr
-import numpy as np
-import pandas as pd
-from Bio import Phylo
 
 ##### import necessary R packages
 phytools = importr("phytools")
@@ -584,7 +580,7 @@ if __name__ == "__main__":
 
     ##### export final pairwise distance matrix as a csv file
     chronosta_pairwise_matrix.to_csv("chronosta_supertimetree_pairwise_distance_matrix.csv", index=True, header=True, na_rep='NaN')
-
+    
 ####################################################################################################
 ##### end of the algorithm #########################################################################
 ####################################################################################################
