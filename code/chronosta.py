@@ -563,7 +563,7 @@ def clusters_to_pairwise_matrix(clusters):
 if __name__ == "__main__":
 
     ##### parse Newick tree from file
-    newick_file = "chronosta_supertimetree.newick"  # Provide the path to your Newick tree file
+    newick_file = "chronosta_supertimetree.newick"
     tree = parse_newick_tree_from_file(newick_file)
 
     ##### compute pairwise distances between clusters
