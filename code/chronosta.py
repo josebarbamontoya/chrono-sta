@@ -1,11 +1,11 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 ####################################################################################################
 ##### Chronological Supertree Algorithm (Chrono-STA) ###############################################
 ##### Jose Barba, Jack Craig, and Sudhir Kumar #####################################################
 ####################################################################################################
 
-##### Usage 
+##### Usage
 #python3 chronosta.py
 
 import os
@@ -19,11 +19,7 @@ import matplotlib.pyplot as plt
 import csv
 import sys
 import rpy2
-
-import pandas as pd
-import numpy as np
 from ete3 import Tree
-import os
 
 def main():
     ##### get the directory containing the script
@@ -237,7 +233,7 @@ class ScratchMatrix:
 scratch_matrix = ScratchMatrix(tip_labels_list, tip_labels_list)
 
 ####################################################################################################
-##### parallel upgma loop ##########################################################################
+##### loop through partial matrices ################################################################
 ####################################################################################################
 
 ##### loop through the partial matrices
