@@ -561,7 +561,7 @@ def main():
             
     except Exception as e:
         warnings.warn(f"{str(e)}")
-        print("Ensure that there are no subtrees or subsets within the set that lack common tip labels with the rest.")
+        print("ERROR: An error has ocurred. Ensure all subtrees or subsets within the set have common tip labels with the full set.")
 
 if __name__ == "__main__":
     main()
