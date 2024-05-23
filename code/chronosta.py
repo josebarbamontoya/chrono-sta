@@ -561,7 +561,7 @@ def main():
             
     except Exception as e:
         warnings.warn(f"{str(e)}")
-        print("ERROR: An error has occurred. Ensure all trees and subsets of trees within the set have common tip labels with the full set.")
+        print("ERROR: An error has occurred. Ensure all timetrees and subsets of timetrees within the set have common tip labels with the full set.")
 
 if __name__ == "__main__":
     main()
