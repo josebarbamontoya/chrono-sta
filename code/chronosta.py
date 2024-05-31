@@ -2,7 +2,7 @@
 
 ####################################################################################################
 ##### Chronological Supertree Algorithm (Chrono-STA) ###############################################
-##### Jose Barba, Jack Craig, and Sudhir Kumar #####################################################
+##### Jose Barba, Jack Craig and Sudhir Kumar ######################################################
 ####################################################################################################
 
 ##### Usage
@@ -41,7 +41,7 @@ def save_output_to_file(log_file):
     sys.stdout = Logger(log_file)
     sys.stderr = Logger(log_file)
 
-    ###### disable ANSI escape codes for terminal control (e.g., [?25h)
+    ###### disable ANSI escape codes for terminal control (e.i., [?25h)
     os.environ['TERM'] = 'dumb'
 
 def main():
@@ -59,8 +59,7 @@ def main():
         ####################################################################################################
         
         ##### print heading
-        print("\nChrono-STA 1.2 built May 31 2024\n")
-
+        print("\nChronological Supertree Algorithm (Chrono-STA 1.2 built May 31 2024)\nDeveloped by Jose Barba, Jack Craig and Sudhir Kumar\n")
         ##### get all .nwk files in the directory
         tree_files = [file for file in os.listdir('.') if file.endswith('.nwk')]
 
@@ -372,14 +371,14 @@ def main():
             ##### store cluster information in the clusters DataFrame
             clusters.loc[len(clusters)] = [sister_pair[0], sister_pair[1], min_distance]
 
-        ##### Export clusters as a CSV file
+        ##### export clusters as a CSV file
         clusters.to_csv("clusters_and_pairwise_distances_list.csv", index=False)
 
-        ##### Display the list of clusters and pairwise distances
+        ##### display the list of clusters and pairwise distances
         #print("clusters_and_paiwise_distances:")
         #print(clusters)
 
-        ##### Convert clusters into a square pairwise distance matrix
+        ##### convert clusters into a square pairwise distance matrix
         df = pd.DataFrame(clusters, columns=['lineage_a', 'lineage_b', 'pairwise_distance'])
 
         lineages = set(df['lineage_a'].str.split(',').sum() + df['lineage_b'].str.split(',').sum())
@@ -402,30 +401,30 @@ def main():
 
         final_pairwise_matrix = final_pairwise_matrix.astype(float)
 
-        ##### Display the list of clusters and pairwise distances
+        ##### display the list of clusters and pairwise distances
         #print("final_pairwise_matrix:")
         #print(final_pairwise_matrix)
 
-        ##### Export final pairwise matrix as a CSV file
+        ##### export final pairwise matrix as a CSV file
         final_pairwise_matrix.to_csv("final_pairwise_distance_matrix.csv", index=True, header=True, na_rep='NaN')
 
         ####################################################################################################
         ##### part04 #######################################################################################
-        ##### construct UPGMA supertree from final pairwise matrix ########################################
+        ##### construct UPGMA supertree from final pairwise matrix #########################################
         ####################################################################################################
 
-        ##### Set diagonal of final pairwise matrix to 0
+        ##### set diagonal of final pairwise matrix to 0
         final_pairwise_matrix_no_nans = final_pairwise_matrix.copy()
         np.fill_diagonal(final_pairwise_matrix_no_nans.values, 0)
 
-        ##### Convert the upper triangular matrix to a condensed distance matrix
+        ##### convert the upper triangular matrix to a condensed distance matrix
         distances = squareform(final_pairwise_matrix_no_nans)
         distances = distances / 2
 
-        ##### Perform UPGMA clustering
+        ##### perform UPGMA clustering
         upgma = hierarchy.linkage(distances, method='average')
 
-        ##### Plot the dendrogram
+        ##### plot the dendrogram
         plt.figure(figsize=(10, 8))
         dendrogram = hierarchy.dendrogram(upgma, labels=final_pairwise_matrix_no_nans.columns.tolist())
         plt.xlabel('Samples', fontsize=12)
@@ -434,10 +433,10 @@ def main():
         plt.tight_layout()
         #plt.show()
 
-        ##### Define function
+        ##### define function
         def get_newick(node, parent_dist, leaf_names, newick=''):
             """
-            Convert scipy.cluster.hierarchy.to_tree()-output to Newick format.
+            convert scipy.cluster.hierarchy.to_tree()-output to Newick format.
             :param node: output of scipy.cluster.hierarchy.to_tree()
             :param parent_dist: distance of the parent node
             :param leaf_names: list of leaf names
@@ -456,55 +455,55 @@ def main():
                 newick = "(%s" % (newick)
                 return newick
 
-        ##### Define leaf names from matrix columns
+        ##### define leaf names from matrix columns
         leaf_names = final_pairwise_matrix_no_nans.columns.tolist()
 
-        ##### Convert the linkage matrix to a tree object
+        ##### convert the linkage matrix to a tree object
         tree = hierarchy.to_tree(upgma)
 
-        ##### Convert the tree to Newick format
+        ##### convert the tree to Newick format
         newick_tree = get_newick(tree, tree.dist, leaf_names)
         #print("UPGMA supertimetree from pairwise distance matrix")
         #print(newick_tree)
 
-        ##### Export the Newick tree as a file
+        ##### export the Newick tree as a file
         with open('supertimetree_from_final_pairwise_distance_matrix.newick', 'w') as file:
             file.write(newick_tree)
 
-        ##### Load the tree from a file (if required)
+        ##### load the tree from a file (if required)
         #newick_tree = Phylo.read("supertimetree_from_final_pairwise_distance_matrix.newick", "newick")
 
-        ##### Draw phylogenetic tree
+        ##### draw phylogenetic tree
         #Phylo.draw(newick_tree, do_show=True)
 
         ####################################################################################################
         ##### make supertimetree ultrametric ###############################################################
         ####################################################################################################
 
-        ##### Import necessary R packages
+        ##### import necessary R packages
         phytools = importr("phytools")
 
-        ##### Read the tree from the Newick file
+        ##### read the tree from the Newick file
         tree = robjects.r['read.tree']("supertimetree_from_final_pairwise_distance_matrix.newick")
 
-        ##### Ladderize the tree
+        ##### ladderize the tree
         ape = importr("ape")
         ladderized_tree = ape.ladderize(tree)
 
-        ##### Force the tree to be ultrametric using NNLS method
+        ##### force the tree to be ultrametric using NNLS method
         phy2 = phytools.force_ultrametric(ladderized_tree, method="nnls", message="FALSE")
 
-        ##### Write the ultrametric tree to a new Newick file
+        ##### write the ultrametric tree to a new Newick file
         robjects.r['write.tree'](phy2, file="chronosta_supertimetree.newick")
 
-        ##### Read the Newick representation of the ultrametric tree
+        ##### read the Newick representation of the ultrametric tree
         with open("chronosta_supertimetree.newick", "r") as f:
             newick_tree2 = f.read()
 
         ##### print chronosta supertimetree
         print(f"Chrono-STA supertimetree: {newick_tree2}\n")
 
-        ##### Generate pairwise distance matrix from chronosta_supertimetree.newick
+        ##### generate pairwise distance matrix from chronosta_supertimetree.newick
         def parse_newick_tree_from_file(newick_file):
             """
             Parse Newick tree from file
@@ -515,7 +514,7 @@ def main():
 
         def compute_pairwise_distances(tree):
             """
-            Compute pairwise distances between clusters
+            compute pairwise distances between clusters
             """
             pairwise_distances = []
             for leaf1 in tree:
@@ -527,9 +526,9 @@ def main():
 
         def format_table(pairwise_distances):
             """
-            Format pairwise distances into a table
+            format pairwise distances into a table
             """
-            table = "lineage_a,lineage_b,p            airwise_distance\n"
+            table = "lineage_a,lineage_b,pairwise_distance\n"
             for pair in pairwise_distances:
                 table += f"{pair[0]},{pair[1]},{pair[2]}\n"
             return table
@@ -560,31 +559,31 @@ def main():
 
         if __name__ == "__main__":
 
-            ##### Parse Newick tree from file
+            ##### parse Newick tree from file
             newick_file = "chronosta_supertimetree.newick"
             tree = parse_newick_tree_from_file(newick_file)
 
-            ##### Compute pairwise distances between clusters
+            ##### compute pairwise distances between clusters
             pairwise_distances = compute_pairwise_distances(tree)
 
-            ##### Format pairwise distances into a table
+            ##### format pairwise distances into a table
             table = format_table(pairwise_distances)
             #print("Pairwise Distance Table:")
             #print(table)
 
-            ##### Convert clusters into a square pairwise distance matrix
+            ##### convert clusters into a square pairwise distance matrix
             df = pd.DataFrame(pairwise_distances, columns=['lineage_a', 'lineage_b', 'pairwise_distance'])
             chronosta_pairwise_matrix = clusters_to_pairwise_matrix(df)
 
-            ##### Display the pairwise distance matrix
+            ##### display the pairwise distance matrix
             #print("\Chrono-STA Pairwise Distance Matrix:")
             #print(chronosta_pairwise_matrix)
 
-            ##### Export final pairwise distance matrix as a CSV file
+            ##### export final pairwise distance matrix as a CSV file
             chronosta_pairwise_matrix.to_csv("chronosta_supertimetree_pairwise_distance_matrix.csv", index=True, header=True, na_rep='NaN')
             
     except Exception as e:
-        warnings.warn(f"{str(e)}")
+        #warnings.warn(f"{str(e)}")
         print("ERROR: An error has occurred. Ensure all timetrees and subsets of timetrees within the set have common tip labels with the full set.\n")
 
 if __name__ == "__main__":
