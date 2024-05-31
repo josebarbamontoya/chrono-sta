@@ -35,13 +35,16 @@ def main():
         ##### part01 #######################################################################################
         ##### build initial/partial time distance matrices #################################################
         ####################################################################################################
+        
+        ##### print heading
+        print("\nChrono-STA 1.2 built May 31 2024\n")
 
         ##### get all .nwk files in the directory
         tree_files = [file for file in os.listdir('.') if file.endswith('.nwk')]
 
         ##### print number of tree files
         number_of_tree_files = len(tree_files)
-        print(f"Number of trees in the set: {number_of_tree_files}")
+        print(f"Number of timetrees in the set: {number_of_tree_files}\n")
 
         ##### designate all tip labels and make a list
         tip_labels = set()
@@ -60,11 +63,10 @@ def main():
 
         ##### print number of unique labels
         number_of_tip_labels = len(tip_labels_list)
-        print(f"Number of unique tip labels: {number_of_tip_labels}")
+        print(f"Number of unique tip labels: {number_of_tip_labels}\n")
 
         ##### print the list of unique tip labels
-        print("Unique tip labels:")
-        print(tip_labels_list)
+        print(f"Unique tip labels: {tip_labels_list}\n")
 
         ##### create an empty list to store the matrices
         matrices = []
@@ -477,8 +479,8 @@ def main():
         with open("chronosta_supertimetree.newick", "r") as f:
             newick_tree2 = f.read()
 
-        print("Chrono-STA supertimetree:")
-        print(newick_tree2)
+        ##### print chronosta supertimetree
+        print(f"Chrono-STA supertimetree: {newick_tree2}\n")
 
         ##### Generate pairwise distance matrix from chronosta_supertimetree.newick
         def parse_newick_tree_from_file(newick_file):
@@ -561,7 +563,7 @@ def main():
             
     except Exception as e:
         warnings.warn(f"{str(e)}")
-        print("ERROR: An error has occurred. Ensure all timetrees and subsets of timetrees within the set have common tip labels with the full set.")
+        print("ERROR: An error has occurred. Ensure all timetrees and subsets of timetrees within the set have common tip labels with the full set.\n")
 
 if __name__ == "__main__":
     main()
