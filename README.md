@@ -80,6 +80,7 @@ python3 chronosta.py
 - `supertree_from_final_pairwise_distance_matrix.newick` contains the supertree constructed from the final pairwise distance matrix in Newick format. This supertree is ultrametricized using non-negative least squares, ensuring uniform branch lengths from root to tips by minimizing the sum-of-squares distance between input and output timetrees
 - `chronosta_supertimetree_pairwise_distance_matrix.csv` contains the pairwise distance matrix computed from the Chrono-STA supertimetree.
 - **`chronosta_supertimetree.newick`** contains the Chrono-STA supertimetree in Newick format.
+- `chronosta_out.log` contains the terminal/command prompt output produced by Chrono-STA.
 
 ---
 We hope you find this repository useful. For comments and questions please e-mail jbarba@amnh.org.
