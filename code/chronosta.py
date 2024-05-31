@@ -24,6 +24,7 @@ from ete3 import Tree
 import rpy2.robjects as robjects
 from rpy2.robjects.packages import importr
 
+##### prepare .log file
 def save_output_to_file(log_file):
     class Logger(object):
         def __init__(self, filename):
@@ -40,11 +41,12 @@ def save_output_to_file(log_file):
     sys.stdout = Logger(log_file)
     sys.stderr = Logger(log_file)
 
-    # Disable ANSI escape codes for terminal control (e.g., [?25h)
+    ###### disable ANSI escape codes for terminal control (e.g., [?25h)
     os.environ['TERM'] = 'dumb'
 
 def main():
     try:
+        ##### set output file
         save_output_to_file("chronosta_out.log")
         ##### get the directory containing the script
         script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -591,4 +593,3 @@ if __name__ == "__main__":
 ####################################################################################################
 ##### end of the algorithm #########################################################################
 ####################################################################################################
-
