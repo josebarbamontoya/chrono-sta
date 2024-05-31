@@ -507,7 +507,7 @@ def main():
             """
             Format pairwise distances into a table
             """
-            table = "lineage_a,lineage_b,p            airwise_distance\n"
+            table = "lineage_a,lineage_b,pairwise_distance\n"
             for pair in pairwise_distances:
                 table += f"{pair[0]},{pair[1]},{pair[2]}\n"
             return table
