@@ -24,8 +24,28 @@ from ete3 import Tree
 import rpy2.robjects as robjects
 from rpy2.robjects.packages import importr
 
+def save_output_to_file(log_file):
+    class Logger(object):
+        def __init__(self, filename):
+            self.terminal = sys.stdout
+            self.log = open(filename, "a")
+
+        def write(self, message):
+            self.terminal.write(message)
+            self.log.write(message)
+
+        def flush(self):
+            pass
+
+    sys.stdout = Logger(log_file)
+    sys.stderr = Logger(log_file)
+
+    # Disable ANSI escape codes for terminal control (e.g., [?25h)
+    os.environ['TERM'] = 'dumb'
+
 def main():
     try:
+        save_output_to_file("chronosta_out.log")
         ##### get the directory containing the script
         script_dir = os.path.dirname(os.path.abspath(__file__))
         ##### set the working directory to the directory containing the script
@@ -507,7 +527,7 @@ def main():
             """
             Format pairwise distances into a table
             """
-            table = "lineage_a,lineage_b,pairwise_distance\n"
+            table = "lineage_a,lineage_b,p            airwise_distance\n"
             for pair in pairwise_distances:
                 table += f"{pair[0]},{pair[1]},{pair[2]}\n"
             return table
@@ -571,3 +591,4 @@ if __name__ == "__main__":
 ####################################################################################################
 ##### end of the algorithm #########################################################################
 ####################################################################################################
+
