@@ -1,6 +1,6 @@
 This directory contains data files analyzed in:
 
-Barba-Montoya et al. (2024). Assembling the tree of life through the integration of chronology and phylogeny. https://doi.org/...
+Barba-Montoya et al. (2024). Integrating phylogenies with chronology to assemble the Tree of Life. https://doi.org/...
 
 Two directories containing example datasets:
 
