@@ -8,4 +8,5 @@ Two directories containing example datasets:
 	empirical_timetree_collection -> collection of 14 mammalian timetrees from Álvarez-Carretero et al. (2022).
 
 For questions or comments please contact:
+
 jbarba@amnh.org
