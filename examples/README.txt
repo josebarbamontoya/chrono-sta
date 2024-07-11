@@ -5,7 +5,7 @@ Barba-Montoya et al. (2024). Integrating phylogenies with chronology to assemble
 Two directories containing example datasets:
 
 	simulated_timetree_collection -> simulated collection of six timetrees (C2) from Barba-Montoya et al. (2024).
-	empirical_timetree_collection -> collection of 14 mammalian timetrees from Álvarez-Carretero et al. (2022).
+	empirical_timetree_collection -> collection of 14 mammal timetrees from Álvarez-Carretero et al. (2022).
 
 For questions or comments please contact:
 
