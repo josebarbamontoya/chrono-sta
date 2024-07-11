@@ -4,8 +4,8 @@ Barba-Montoya et al. (2024). Integrating phylogenies with chronology to assemble
 
 Two zip archives, one for simulated data, and one for empirical data:
 
-	empirical_data.zip
-	simulated_data.zip
+	empirical_data
+	simulated_data
 
 For questions or comments please contact:
 
