@@ -2,13 +2,7 @@ This directory contains data files analyzed in:
 
 Barba-Montoya et al. (2024). Integrating phylogenies with chronology to assemble the Tree of Life. https://doi.org/...
 
-Four directories for simulated data:
-
-  This directory contains data files analyzed in:
-
-Barba-Montoya et al. (2024). Integrating phylogenies with chronology to assemble the Tree of Life. https://doi.org/...
-
-Four directories for simulated data:
+12 directories for simulated data and two model trees:
 
   model_supertree_c1-c3.tre -> C1-C3 model supertree (reference tree).
   timetree_collection_c1 -> six MSAs and six constituent timetrees.
