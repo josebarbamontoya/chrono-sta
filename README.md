@@ -2,6 +2,8 @@
 
 Chrono-STA is a  method that incorporates the phylogenetic time dimension to construct supertrees, making it robust even when species overlap between phylogenies is low. For a more detailed explanation of the method, please read our manuscript (DOI: doi.org/...).
 
+<p style="text-align:center;"><img src="chronosta_logo.jpg" height="250" width="250"></p>
+
 ## Installation
 
 Chrono-STA is suported on Unix, macOS, and Windows.
