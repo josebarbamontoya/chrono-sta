@@ -1,5 +1,8 @@
+<div style="display: flex; justify-content: center; align-items: center; height: auto;">
+  <img src="chrono-sta_logo.jpg" alt="Chrono-STA Logo" height="333" width="583">
+</div>
 
-<p style="text-align:left;"><img src="chrono-sta_logo.jpg" height="333" width="583"></p>
+#########<p style="text-align:center;"><img src="chrono-sta_logo.jpg" height="333" width="583"></p>
 
 # Chronological Supertree Algorithm (Chrono-STA)
 
