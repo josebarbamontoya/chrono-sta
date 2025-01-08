@@ -38,7 +38,7 @@ Install the required R packages. In an R session, type:
 
 **Unix and macOS**
 
-1.	In a terminal, create a directory (e.g., `simulated_timetree_collection`) and copy the sub-timetrees in Newick format with the extension `.nwk`, along with the `chronosta.py` script located inside the `code` directory:
+1.	In a terminal, create a directory (e.g., `simulated_timetree_collection`) and copy the constituent timetrees in Newick format with the extension `.nwk`, along with the `chronosta.py` script located inside the `code` directory:
 ```
 mkdir /Users/barba/chrono-sta/examples/simulated_timetree_collection
 cp *.nwk /Users/barba/chrono-sta/examples/simulated_timetree_collection
@@ -57,7 +57,7 @@ python3 chronosta.py
 
 **Windows**
 
-1.	In a command prompt, create a directory (e.g., `simulated_timetree_collection`) and copy the sub-timetrees in Newick format with the extension `.nwk`, along with the `chronosta.py` script located inside the `code` directory:
+1.	In a command prompt, create a directory (e.g., `simulated_timetree_collection`) and copy the constituent timetrees in Newick format with the extension `.nwk`, along with the `chronosta.py` script located inside the `code` directory:
 ```
 mkdir C:\Users\barba\chrono-sta\examples\simulated_timetree_collection
 copy *.nwk C:\Users\barba\chrono-sta\examples\simulated_timetree_collection
@@ -76,8 +76,8 @@ python3 chronosta.py
 
 ## Output files
 
-- `_pd_matrix.csv` suffix denotes files containing the pairwise distance matrix computed for each sub-timetree.
-- `combo_matrix.csv` contains the cumulative average pairwise distance matrix computed from sub-timetrees. 
+- `_pd_matrix.csv` suffix denotes files containing the pairwise distance matrix computed for each constituent timetree.
+- `combo_matrix.csv` contains the cumulative average pairwise distance matrix computed from constituent timetrees. 
 - `clusters_and_pairwise_distances_list.csv` contains information about the clusters inferred during the construction of the supertree, along with their pairwise distances. 
 - `final_pairwise_distance_matrix.csv` contains the final pairwise distance matrix computed from the list of clusters and pairwise distances.
 - `supertree_from_final_pairwise_distance_matrix.newick` contains the supertree constructed from the final pairwise distance matrix in Newick format. This supertree is ultrametricized using non-negative least squares, ensuring uniform branch lengths from root to tips.
