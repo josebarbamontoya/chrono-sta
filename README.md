@@ -1,4 +1,4 @@
-<p style="text-align:center;"><img src="chronosta_logo.jpg" height="250" width="300"></p>
+<p style="text-align:center;"><img src="chronosta_logo.jpg" height="250" width="400"></p>
 
 # Chronological Supertree Algorithm (Chrono-STA)
 
