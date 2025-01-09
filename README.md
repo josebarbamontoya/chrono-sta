@@ -1,4 +1,6 @@
 
+![Chrono-STA logo](chrono-sta_logo.jpg)
+
 <p style="text-align:center;"><img src="chrono-sta_logo.jpg" height="333" width="583"></p>
 
 # Chronological Supertree Algorithm (Chrono-STA)
