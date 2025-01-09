@@ -85,6 +85,5 @@ python3 chronosta.py
 - <u>**`chronosta_supertimetree.newick`**</u> contains the Chrono-STA supertimetree in Newick format.
 - `chronosta_out.log` contains the terminal/command prompt output produced by Chrono-STA.
 
-This is <u><strong>bold and underlined</strong></u> text.
 ---
 We hope you find this repository useful. For comments and questions please e-mail jbarba@amnh.org.
