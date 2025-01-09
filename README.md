@@ -38,7 +38,8 @@ Install the required R packages. In an R session, type:
 
 **Unix and macOS**
 
-1.	In a terminal, create a directory (e.g., `chronosta_analysis`) and copy all the constituent timetrees in the `simulated_timetree_collection` directory (in Newick format with the .nwk extension), as well as the chronosta.py script located in the `code` directory (suppose you have extracted the archive into `~/chrono-sta`):
+1.	In a terminal, create a directory (e.g., `chronosta_analysis`) and copy all the constituent timetrees in the `simulated_timetree_collection directory` (in Newick format with the `.nwk` extension), as well as the `chronosta.py` script located in the `code` directory (suppose you have extracted the archive into `~/chrono-sta`)
+
 ```
 mkdir -p ~/chronosta_analysis
 cp ~/chrono-sta/examples/simulated_timetree_collection/*.nwk ~/chronosta_analysis
@@ -59,7 +60,7 @@ If `-bash: ./chronosta.py: Permission denied` is displayed, make the `chronosta.
 
 **Windows**
 
-1.	In a command prompt, create a directory (e.g., `chronosta_analysis`) and copy all the constituent timetrees in the `simulated_timetree_collection` directory (in Newick format with the .nwk extension), as well as the chronosta.py script located in the `code` directory (suppose you have extracted the archive into `C:\Programs\chrono-sta\`):
+1.	In a command prompt, create a directory (e.g., `chronosta_analysis`) and copy all the constituent timetrees in the `simulated_timetree_collection` directory (in Newick format with the `.nwk` extension), as well as the `chronosta.py` script located in the `code` directory (suppose you have extracted the archive into `C:\Programs\chrono-sta\`):
 ```
 mkdir C:\chronosta_analysis
 copy C:\Programs\chrono-sta\examples\simulated_timetree_collection\*.nwk C:\chronosta_analysis
@@ -73,7 +74,7 @@ cd C:\chronosta_analysis
 
 3.	To execute the Chrono-STA analysis, type:
 ```
-python3 chronosta.py
+python chronosta.py
 ```
 
 ## Output files
