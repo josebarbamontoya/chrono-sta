@@ -4,7 +4,7 @@ Ensure that Python 3, is installed along with the Pyhton and R packages indicate
 
 Unix and macOS
 
-1. In a terminal, create a directory (e.g., 'simulated_timetree_collection') and copy the sub-timetrees in Newick format with the extension .nwk, along with the 'chronosta.py' script located inside the 'code' directory:
+1. In a terminal, create a directory (e.g., 'simulated_timetree_collection') and copy the constituent timetrees in Newick format with the extension .nwk, along with the 'chronosta.py' script located inside the 'code' directory:
 
     mkdir /Users/barba/chrono-sta/examples/simulated_timetree_collection
     cp *.nwk /Users/barba/chrono-sta/examples/simulated_timetree_collection
@@ -20,7 +20,7 @@ Unix and macOS
 
 Windows
 
-1. In a command prompt, create a directory (e.g., 'simulated_timetree_collection') and copy the sub-timetrees in Newick format with the extension .nwk, along with the 'chronosta.py' script located inside the 'code' directory:
+1. In a command prompt, create a directory (e.g., 'simulated_timetree_collection') and copy the constituent timetrees in Newick format with the extension .nwk, along with the 'chronosta.py' script located inside the 'code' directory:
 
     mkdir C:\Users\barba\chrono-sta\examples\simulated_timetree_collection
     copy *.nwk C:\Users\barba\chrono-sta\examples\simulated_timetree_collection
