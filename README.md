@@ -1,5 +1,5 @@
 
-![Chrono-STA logo](chrono-sta_logo.jpg)
+	![Chrono-STA logo](chrono-sta_logo.jpg)
 
 # Chronological Supertree Algorithm (Chrono-STA)
 
