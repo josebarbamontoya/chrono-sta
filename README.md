@@ -47,7 +47,7 @@ cp chronosta.py /Users/barba/chrono-sta/examples/simulated_timetree_collection
 
 2.	Type `cd` followed by the path to the created directory to change the working directory to the folder that contains the `chronosta.py` script:	
 ```
-cd /Users/barba/examples/chrono-sta/simulated_timetree_collection
+cd /Users/barba/chrono-sta/examples/simulated_timetree_collection
 ```
 
 3.	To execute the Chrono-STA analysis, type:
