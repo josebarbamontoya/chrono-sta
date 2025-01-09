@@ -59,16 +59,16 @@ If `-bash: ./chronosta.py: Permission denied` is displayed, make the `chronosta.
 
 **Windows**
 
-1.	In a command prompt, create a directory (e.g., `chronosta_analysis`) and copy all the constituent timetrees in the `simulated_timetree_collection` directory (in Newick format with the .nwk extension), as well as the chronosta.py script located in the `code` directory:
+1.	In a command prompt, create a directory (e.g., `chronosta_analysis`) and copy all the constituent timetrees in the `simulated_timetree_collection` directory (in Newick format with the .nwk extension), as well as the chronosta.py script located in the `code` directory (suppose you have extracted the archive into C:\Programs\chrono-sta\):
 ```
-mkdir C:\Users\barba\chrono-sta\examples\simulated_timetree_collection
-copy *.nwk C:\Users\barba\chrono-sta\examples\simulated_timetree_collection
-copy chronosta.py C:\Users\barba\chrono-sta\examples\simulated_timetree_collection
+mkdir C:\chronosta_analysis
+copy C:\Programs\chrono-sta\examples\simulated_timetree_collection\*.nwk C:\chronosta_analysis
+copy C:\Programs\chrono-sta\code\chronosta.py C:\chronosta_analysis
 ```
 
-2.	Type `cd` followed by the path to the created directory to change the working directory to the folder that contains the `chronosta.py` script:	
+2.	Type `cd` followed by the path to the created directory to change the working directory to the folder that contains the `chronosta.py` script and the constituent timetrees:	
 ```
-cd C:\Users\barba\chrono-sta\examples\simulated_timetree_collection
+cd C:\chronosta_analysis
 ```
 
 3.	To execute the Chrono-STA analysis, type:
