@@ -55,7 +55,7 @@ cd ~/chronosta_analysis
 chronosta.py
 ```
 
-If you encounter -bash: ./chronosta.py: Permission denied, make the chronosta.py script executable with chmod +x chronosta.py
+If you encounter `-bash: ./chronosta.py: Permission denied`, make the `chronosta.py` script executable. Type `chmod +x chronosta.py`.
 
 **Windows**
 
