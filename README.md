@@ -43,7 +43,6 @@ Install the required R packages. In an R session, type:
 mkdir -p ~/chronosta_analysis
 cp ~/chrono-sta/examples/simulated_timetree_collection/*.nwk ~/chronosta_analysis
 cp ~/chrono-sta/code/chronosta.py ~/chronosta_analysis
-
 ```
 
 2.	Type `cd` followed by the path to the created directory to change the working directory to the folder that contains the `chronosta.py` script and the constituent timetrees:	
