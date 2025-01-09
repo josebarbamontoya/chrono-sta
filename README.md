@@ -38,16 +38,17 @@ Install the required R packages. In an R session, type:
 
 **Unix and macOS**
 
-1.	In a terminal, create a directory (e.g., `simulated_timetree_collection`) and copy the constituent timetrees in Newick format with the extension `.nwk`, along with the `chronosta.py` script located inside the `code` directory:
+1.	In a terminal, create a directory (e.g., `chronosta_analysis`) and copy all the constituent timetrees in the `simulated_timetree_collection` directory (in Newick format with the .nwk extension), as well as the chronosta.py script located in the `code` directory:
 ```
-mkdir /Users/barba/chrono-sta/examples/simulated_timetree_collection
-cp *.nwk /Users/barba/chrono-sta/examples/simulated_timetree_collection
-cp chronosta.py /Users/barba/chrono-sta/examples/simulated_timetree_collection
+mkdir -p ~/chronosta_analysis
+cp ~/chrono-sta/examples/simulated_timetree_collection/*.nwk ~/chronosta_analysis
+cp ~/chrono-sta/code/chronosta.py ~/chronosta_analysis
+
 ```
 
-2.	Type `cd` followed by the path to the created directory to change the working directory to the folder that contains the `chronosta.py` script:	
+2.	Type `cd` followed by the path to the created directory to change the working directory to the folder that contains the `chronosta.py` script and the constituent timetrees:	
 ```
-cd /Users/barba/chrono-sta/examples/simulated_timetree_collection
+cd ~/chronosta_analysis
 ```
 
 3.	To execute the Chrono-STA analysis, type:
