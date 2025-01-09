@@ -52,7 +52,7 @@ cd /Users/barba/chrono-sta/examples/simulated_timetree_collection
 
 3.	To execute the Chrono-STA analysis, type:
 ```
-python3 chronosta.py
+chronosta.py
 ```
 
 **Windows**
@@ -71,7 +71,7 @@ cd C:\Users\barba\chrono-sta\examples\simulated_timetree_collection
 
 3.	To execute the Chrono-STA analysis, type:
 ```
-python3 chronosta.py
+chronosta.py
 ```
 
 ## Output files
