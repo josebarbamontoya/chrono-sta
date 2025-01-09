@@ -54,7 +54,9 @@ cd ~/chronosta_analysis
 ```
 chronosta.py
 ```
-chmod +x chronosta.py 
+
+If you encounter -bash: ./chronosta.py: Permission denied, make the chronosta.py script executable with chmod +x chronosta.py
+
 **Windows**
 
 1.	In a command prompt, create a directory (e.g., `simulated_timetree_collection`) and copy the constituent timetrees in Newick format with the extension `.nwk`, along with the `chronosta.py` script located inside the `code` directory:
