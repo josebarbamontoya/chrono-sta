@@ -59,7 +59,7 @@ If `-bash: ./chronosta.py: Permission denied` is displayed, make the `chronosta.
 
 **Windows**
 
-1.	In a command prompt, create a directory (e.g., `simulated_timetree_collection`) and copy the constituent timetrees in Newick format with the extension `.nwk`, along with the `chronosta.py` script located inside the `code` directory:
+1.	In a command prompt, create a directory (e.g., `chronosta_analysis`) and copy all the constituent timetrees in the `simulated_timetree_collection` directory (in Newick format with the .nwk extension), as well as the chronosta.py script located in the `code` directory:
 ```
 mkdir C:\Users\barba\chrono-sta\examples\simulated_timetree_collection
 copy *.nwk C:\Users\barba\chrono-sta\examples\simulated_timetree_collection
