@@ -1,4 +1,6 @@
 ![Chrono-STA logo](chrono-sta_logo.jpg)
+<p style="text-align:center;"><img src="chrono-sta_logo.jpg" height="336" width="567"></p>
+
 # Chronological Supertree Algorithm (Chrono-STA)
 
 Chrono-STA is a method that incorporates the phylogenetic time dimension to construct supertrees, enabling the integration of taxonomically restricted phylogenies with minimal species overlap. For a more detailed explanation of the method, please read our manuscript (DOI: doi.org/...).
