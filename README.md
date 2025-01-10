@@ -13,9 +13,7 @@ To download Chrono-STA, use `git`, and `clone` with `--recursive`. In a terminal
 git clone --recursive https://github.com/josebarbamontoya/chrono-sta
 ```
 
-Use of Chrono-STA requires Python 3 and the following Python and R packages. Install them before using the `chronosta.py` script.
-
-To install Python 3, visit the official Python website at https://www.python.org/downloads/ and follow the installation instructions. To install R, visit the official R website at https://cran.rstudio.com and follow the installation instructions.
+Use of Chrono-STA requires Python 3 and the following Python and R packages. Install them before using the `chronosta.py` script. To install Python 3, visit the official Python website at https://www.python.org/downloads/ and follow the installation instructions. To install R, visit the official R website at https://cran.rstudio.com and follow the installation instructions.
 
 Install the required Python 3 packages. In a terminal or command prompt session, type:
 
