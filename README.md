@@ -17,8 +17,6 @@ Use of Chrono-STA requires Python 3 and the following Python and R packages. Ins
 
 To install Python 3, visit the official Python website at https://www.python.org/downloads/ and follow the installation instructions. To install R, visit the official R website at https://cran.rstudio.com and follow the installation instructions.
 
-<img width="313" alt="image" src="https://github.com/user-attachments/assets/390e714f-0d4e-4e9e-8eac-f1589c1cd740" />
-
 Install the required Python 3 packages. In a terminal or command prompt session, type:
 
 	pip3 install biopython
