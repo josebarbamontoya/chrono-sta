@@ -22,8 +22,6 @@ Install the required Python 3 packages. In a terminal or command prompt session,
 	pip3 install numpy
 	pip3 install scipy
 	pip3 install matplotlib
-	pip3 install rpy2
-	pip3 install ete3 
 
 ## Execution
 
