@@ -73,7 +73,7 @@ python chronosta.py
 - ***`clusters_and_pairwise_distances_list.csv`*** contains information about the clusters inferred during the construction of the supertree, along with their pairwise distances. 
 - ***`final_pairwise_distance_matrix.csv`*** contains the final pairwise distance matrix computed from the list of clusters and pairwise distances.
 - ***`chronosta_supertee.newick`*** contains the Chrono-STA supertimetree in Newick format.
-- ***`chronosta_dendrogram.png`*** contains the Chrono-STA supertimetree in PNG format
+- ***`chronosta_dendrogram.png`*** contains the Chrono-STA supertimetree in PNG format.
 
 ---
 We hope you find this repository useful. For comments and questions please e-mail jbarba@amnh.org.
