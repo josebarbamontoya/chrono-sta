@@ -13,7 +13,7 @@ To download Chrono-STA, use `git`, and `clone` with `--recursive`. In a terminal
 git clone --recursive https://github.com/josebarbamontoya/chrono-sta
 ```
 
-Use of Chrono-STA requires Python 3 and the following Python and R packages. Install them before using the `chronosta.py` script. To install Python 3, visit the official Python website at https://www.python.org/downloads/ and follow the installation instructions. To install R, visit the official R website at https://cran.rstudio.com and follow the installation instructions.
+Use of Chrono-STA requires Python 3 and the following Python packages. Install them before using the `chronosta.py` script. To install Python 3, visit the official Python website at https://www.python.org/downloads/ and follow the installation instructions.
 
 Install the required Python 3 packages. In a terminal or command prompt session, type:
 
@@ -24,11 +24,6 @@ Install the required Python 3 packages. In a terminal or command prompt session,
 	pip3 install matplotlib
 	pip3 install rpy2
 	pip3 install ete3 
-
-Install the required R packages. In an R session, type:
-
-	install.packages("ape")
-	install.packages("phytools")
 
 ## Execution
 
@@ -75,14 +70,10 @@ python chronosta.py
 
 ## Output files
 
-- `_pd_matrix.csv` suffix denotes files containing the pairwise distance matrix computed for each constituent timetree.
-- `combo_matrix.csv` contains the cumulative average pairwise distance matrix computed from constituent timetrees. 
-- `clusters_and_pairwise_distances_list.csv` contains information about the clusters inferred during the construction of the supertree, along with their pairwise distances. 
-- `final_pairwise_distance_matrix.csv` contains the final pairwise distance matrix computed from the list of clusters and pairwise distances.
-- `supertree_from_final_pairwise_distance_matrix.newick` contains the supertree constructed from the final pairwise distance matrix in Newick format. This supertree is ultrametricized using non-negative least squares, ensuring uniform branch lengths from root to tips.
-- ***`chronosta_supertimetree.newick`*** contains the Chrono-STA supertimetree in Newick format.
-- `chronosta_supertimetree_pairwise_distance_matrix.csv` contains the pairwise distance matrix computed from the Chrono-STA supertimetree.
-- `chronosta_out.log` contains the terminal/command prompt output produced by Chrono-STA.
+- ***`clusters_and_pairwise_distances_list.csv`*** contains information about the clusters inferred during the construction of the supertree, along with their pairwise distances. 
+- ***`final_pairwise_distance_matrix.csv`*** contains the final pairwise distance matrix computed from the list of clusters and pairwise distances.
+- ***`chronosta_supertee.newick`*** contains the Chrono-STA supertimetree in Newick format.
+- ***`chronosta_dendrogram.png`*** contains the Chrono-STA supertimetree in PNG format
 
 ---
 We hope you find this repository useful. For comments and questions please e-mail jbarba@amnh.org.
