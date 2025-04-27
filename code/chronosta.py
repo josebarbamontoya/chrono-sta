@@ -1,594 +1,248 @@
 #!/usr/bin/python3
 
-####################################################################################################
-##### Chronological Supertree Algorithm (Chrono-STA) ###############################################
-##### Jose Barba, Jack Craig and Sudhir Kumar ######################################################
-####################################################################################################
+###################################################################################
+##### Chronological Supertree Algorithm (Chrono-STA) ##############################
+##### Jose Barba, Jack Craig, and Sudhir Kumar ####################################
+###################################################################################
 
-##### Usage
-#python3 chronosta.py
+# ────────────────────────────────────────────────────────────────────────────────
+# print heading
+# ────────────────────────────────────────────────────────────────────────────────
+
+print("\n\n***** Chronological Supertree Algorithm (Chrono-STA 1.3 built April 25 2025)\n"
+      "***** Developed by Jose Barba, Jack Craig and Sudhir Kumar\n")
+
+# ────────────────────────────────────────────────────────────────────────────────
+# set up python env
+# ────────────────────────────────────────────────────────────────────────────────
 
 import os
-import warnings
-from Bio import Phylo
-from Bio.Phylo.TreeConstruction import DistanceCalculator, DistanceTreeConstructor
-import pandas as pd
+from typing import Dict, List, Tuple
 import numpy as np
-from scipy.spatial.distance import squareform
+import pandas as pd
+from Bio import Phylo
 from scipy.cluster import hierarchy
+from scipy.spatial.distance import squareform
 import matplotlib.pyplot as plt
-import csv
-import sys
-import rpy2
-from ete3 import Tree
-import rpy2.robjects as robjects
-from rpy2.robjects.packages import importr
-
-##### prepare .log file
-def save_output_to_file(log_file):
-    class Logger(object):
-        def __init__(self, filename):
-            self.terminal = sys.stdout
-            self.log = open(filename, "a")
-
-        def write(self, message):
-            self.terminal.write(message)
-            self.log.write(message)
-
-        def flush(self):
-            pass
-
-    sys.stdout = Logger(log_file)
-    sys.stderr = Logger(log_file)
-
-    ###### disable ANSI escape codes for terminal control (e.i., [?25h)
-    os.environ['TERM'] = 'dumb'
-
-def main():
-    try:
-        ##### set output file
-        save_output_to_file("chronosta_out.log")
-        ##### get the directory containing the script
-        script_dir = os.path.dirname(os.path.abspath(__file__))
-        ##### set the working directory to the directory containing the script
-        os.chdir(script_dir)
-
-        ####################################################################################################
-        ##### part01 #######################################################################################
-        ##### build initial/partial time distance matrices #################################################
-        ####################################################################################################
-        
-        ##### print heading
-        print("\nChronological Supertree Algorithm (Chrono-STA 1.2 built May 31 2024)\nDeveloped by Jose Barba, Jack Craig and Sudhir Kumar\n")
-        ##### get all .nwk files in the directory
-        tree_files = [file for file in os.listdir('.') if file.endswith('.nwk')]
-
-        ##### print number of tree files
-        number_of_tree_files = len(tree_files)
-        print(f"Number of timetrees in the set: {number_of_tree_files}\n")
-
-        ##### designate all tip labels and make a list
-        tip_labels = set()
-
-        ##### loop through the tree files
-        for file in tree_files:
-            tree = Phylo.read(file, 'newick')
-
-            ##### get the tip labels from the tree
-            for clade in tree.find_clades():
-                if clade.is_terminal():
-                    tip_labels.add(clade.name)
-
-        ##### convert the set to a sorted list
-        tip_labels_list = sorted(list(tip_labels))
-
-        ##### print number of unique labels
-        number_of_tip_labels = len(tip_labels_list)
-        print(f"Number of unique tip labels: {number_of_tip_labels}\n")
-
-        ##### print the list of unique tip labels
-        print(f"Unique tip labels: {tip_labels_list}\n")
-
-        ##### create an empty list to store the matrices
-        matrices = []
-
-        ##### loop through each tree file
-        for tree_file in tree_files:
-            #print(f"Processing tree: {tree_file}")
-
-            ##### load the tree from a file
-            tree = Phylo.read(tree_file, "newick")
-
-            ##### compute pairwise distances
-            pairwise_distances = {}
-            for leaf1 in tree.get_terminals():
-                for leaf2 in tree.get_terminals():
-                    if leaf1 != leaf2:
-                        distance = tree.distance(leaf1, leaf2)
-                        pairwise_distances[(leaf1.name, leaf2.name)] = distance
-
-            ##### create a DataFrame from pairwise_distances
-            df = pd.DataFrame.from_dict(pairwise_distances, orient='index', columns=['distance'])
-
-            ##### extract the node names from the index
-            df[['sis_a', 'sis_b']] = pd.DataFrame(df.index.tolist(), index=df.index)
-
-            ##### pivot the DataFrame to create the square matrix
-            matrix = df.pivot(index='sis_a', columns='sis_b', values='distance')
-            #print("square_matrix:")
-            #print(matrix)
-
-            ##### export matrix as csv file
-            matrix.to_csv(f'{os.path.splitext(tree_file)[0]}_pd_matrix.csv', index=True, header=True, na_rep='NaN')
-
-            ##### append the matrix to the list
-            matrices.append(matrix)
-
-        ####################################################################################################
-        ##### part02 #######################################################################################
-        ##### combine matrices and expand to match combined matrix #########################################
-        ####################################################################################################
 
-        ##### create an empty combo DataFrame with dimensions based on the length of tip_labels_list
-        combo_matrix = pd.DataFrame(index=tip_labels_list, columns=tip_labels_list)
-
-        ##### fill the DataFrame with NaN values
-        combo_matrix.fillna(value=np.nan, inplace=True)
-
-        ##### loops for expanding matrices from matrices list to match combo_matrix
-        expanded_matrices = []
-
-        for matrix in matrices:
-            ##### create a new DataFrame with dimensions based on tip_labels_list
-            expanded_matrix = pd.DataFrame(index=tip_labels_list, columns=tip_labels_list)
-
-            ##### fill the expanded matrix with values from the original matrix
-            for row in tip_labels_list:
-                for column in tip_labels_list:
-                    ##### check if the row and column labels exist in the original matrix
-                    if row in matrix.index and column in matrix.columns:
-                        ##### copy the value from the original matrix
-                        expanded_matrix.loc[row, column] = matrix.loc[row, column]
-                    else:
-                        ##### fill NaN for missing values
-                        expanded_matrix.loc[row, column] = np.nan
-
-            ##### append the expanded matrix to the list
-            expanded_matrices.append(expanded_matrix)
-
-        for index, expanded_matrix in enumerate(expanded_matrices):
-            ##### generate a unique file name for each expanded matrix
-            file_name = f'expanded_matrix_{index}.csv'
-
-            ##### export the expanded matrix as a csv file
-            #expanded_matrix.to_csv(file_name, index=True, header=True, na_rep='NaN')
-
-        ####################################################################################################
-        ##### part03 #######################################################################################
-        ##### populate expanded matrices, compute final matrix, and clusters list ##########################
-        ####################################################################################################
-
-        ##### generate an object oriented cummulative average matrix from partial matices 
-        partial_matrices = expanded_matrices
-
-        class Matrix:
-            def __init__(self, data):
-                self.data = data
-
-            def fill_missing_values(self, fill_value=np.nan):
-                self.data.fillna(value=fill_value, inplace=True)
-
-            def expand_to_match(self, target_labels):
-                expanded_matrix = pd.DataFrame(index=target_labels, columns=target_labels)
-                expanded_matrix.fillna(value=np.nan, inplace=True)
-
-                for row in target_labels:
-                    for column in target_labels:
-                        if row in self.data.index and column in self.data.columns:
-                            expanded_matrix.loc[row, column] = self.data.loc[row, column]
-                        else:
-                            expanded_matrix.loc[row, column] = np.nan
-
-                self.data = expanded_matrix
-
-            def combine_matrices(self, matrices):
-                combo_matrix = pd.DataFrame(0, index=self.data.index, columns=self.data.columns)
-                count_matrix = pd.DataFrame(0, index=self.data.index, columns=self.data.columns)
-
-                for matrix in matrices:
-                    count_matrix += ~matrix.data.isna()
-                    combo_matrix += matrix.data.fillna(0)
-
-                self.data = combo_matrix / count_matrix
-
-            #def print_matrix(self):
-                #print(self.data)
-
-        ##### create Matrix objects from the expanded_matrices list
-        partial_matrices = [Matrix(matrix) for matrix in expanded_matrices]
-
-        ##### display partial matrices:
-        #for index, partial_matrix in enumerate(partial_matrices):
-            #print(f"Partial Matrix {index + 1}:")
-            #partial_matrix.print_matrix()
-            #print()
-
-        ##### generate an object-oriented scratch matrix from partial matrices
-        class ScratchMatrix:
-            def __init__(self, rows, columns):
-                self.rows = rows
-                self.columns = columns
-                self.matrix = pd.DataFrame(0, index=rows, columns=columns)
-                self.count_matrix = pd.DataFrame(0, index=rows, columns=columns)
-
-            def add_partial_matrix(self, partial_matrix):
-                self.count_matrix += ~partial_matrix.data.isna()
-                self.matrix += partial_matrix.data.fillna(0)    
-
-            def compute_average_matrix(self):
-                self.matrix = self.matrix / self.count_matrix
-
-        #def display_matrix(self):
-            #print("scratch_matrix:")
-            #print(self.matrix)
-
-        ##### initialize the scratch matrix object
-        scratch_matrix = ScratchMatrix(tip_labels_list, tip_labels_list)
-
-        ####################################################################################################
-        ##### loop through partial matrices ################################################################
-        ####################################################################################################
-
-        ##### loop through the partial matrices
-        for partial_matrix in partial_matrices:
-            scratch_matrix.add_partial_matrix(partial_matrix)
-
-        ##### compute the cumulative average matrix
-        scratch_matrix.compute_average_matrix()
-
-        ##### display the scratch matrix
-        #scratch_matrix.display_matrix()
-
-        ##### find the smallest distance and the sister pair in the scratch matrix
-        min_distance = np.nanmin(scratch_matrix.matrix.values)
-        min_indices = np.where(scratch_matrix.matrix.values == min_distance)
-        sister_pair = (scratch_matrix.matrix.index[min_indices[0][0]], scratch_matrix.matrix.columns[min_indices[1][0]])
-
-        ##### create the composite cluster name
-        composite_cluster = f"{sister_pair[0]},{sister_pair[1]}"
-
-        ##### compute distances between the composite cluster and the rest of the leaf nodes
-        composite_distances = {}
-        for leaf in scratch_matrix.matrix.index:
-            if leaf != sister_pair[0] and leaf != sister_pair[1]:
-                composite_distances[leaf] = (scratch_matrix.matrix.loc[sister_pair[0], leaf] + scratch_matrix.matrix.loc[sister_pair[1], leaf]) / 2
-
-        ##### remove the sister pair from the scratch matrix
-        condensed_matrix = scratch_matrix.matrix.drop(index=[sister_pair[0], sister_pair[1]], columns=[sister_pair[0], sister_pair[1]])
-
-        ##### add the composite cluster to the condensed matrix
-        condensed_matrix = pd.concat([condensed_matrix, pd.Series(composite_distances, name=composite_cluster)], axis=1)
-        condensed_matrix.loc[composite_cluster] = pd.Series(composite_distances)
-        condensed_matrix.loc[composite_cluster, composite_cluster] = np.nan
-
-        ##### find the indices of the identified cluster in each partial matrix
-        for partial_matrix in partial_matrices:
-            if sister_pair[0] in partial_matrix.data.index and sister_pair[1] in partial_matrix.data.columns:
-                row_index = partial_matrix.data.index.get_loc(sister_pair[0])
-                col_index = partial_matrix.data.columns.get_loc(sister_pair[1])
-                partial_matrix.data.iat[row_index, col_index] = np.nan
-                partial_matrix.data.iat[col_index, row_index] = np.nan
-
-        ##### add the composite cluster and its distances to each partial matrix
-        for partial_matrix in partial_matrices:
-            if composite_cluster not in partial_matrix.data.index:
-                partial_matrix.data = pd.concat([partial_matrix.data, pd.Series(np.nan, name=composite_cluster, index=partial_matrix.data.index)], axis=1)
-            if composite_cluster not in partial_matrix.data.columns:
-                partial_matrix.data.loc[composite_cluster] = pd.Series(np.nan, index=partial_matrix.data.columns)
-
-            for leaf, distance in composite_distances.items():
-                partial_matrix.data.loc[composite_cluster, leaf] = distance
-                partial_matrix.data.loc[leaf, composite_cluster] = distance
-
-        ##### remove the clustered elements from the partial_matrices
-        for partial_matrix in partial_matrices:
-            partial_matrix.data = partial_matrix.data.drop([sister_pair[0], sister_pair[1]], axis=0)
-            partial_matrix.data = partial_matrix.data.drop([sister_pair[0], sister_pair[1]], axis=1)
-
-        ##### create a dataframe to store cluster values
-        clusters = pd.DataFrame(columns=["lineage_a", "lineage_b", "pairwise_distance"])
-
-        ##### find the sister pair and pairwise distance
-        sister_pair_distance = scratch_matrix.matrix.loc[sister_pair[0], sister_pair[1]]
-
-        ##### update the clusters DataFrame
-        clusters.loc[len(clusters)] = [sister_pair[0], sister_pair[1], sister_pair_distance]
-
-        while len(condensed_matrix) > 1:
-            ##### find the smallest distance and the sister pair in the condensed matrix
-            min_distance = np.nanmin(condensed_matrix.values)
-            min_indices = np.where(condensed_matrix.values == min_distance)
-            #print("condensed_matrix:")
-            #print(condensed_matrix)
-            sister_pair = (condensed_matrix.index[min_indices[0][0]], condensed_matrix.columns[min_indices[1][0]])
-
-            ##### create the composite cluster name
-            composite_cluster = f"{sister_pair[0]},{sister_pair[1]}"
-
-            ##### compute distances between the composite cluster and the rest of the leaf nodes
-            composite_distances = {}
-            for leaf in condensed_matrix.index:
-                if leaf != sister_pair[0] and leaf != sister_pair[1]:
-                    if sister_pair[0] in condensed_matrix.index and leaf in condensed_matrix.columns:
-                        distance_a = condensed_matrix.loc[sister_pair[0], leaf]
-                    else:
-                        distance_a = np.nan
-
-                    if sister_pair[1] in condensed_matrix.index and leaf in condensed_matrix.columns:
-                        distance_b = condensed_matrix.loc[sister_pair[1], leaf]
-                    else:
-                        distance_b = np.nan
-
-                    if not np.isnan(distance_a) and not np.isnan(distance_b):
-                        composite_distances[leaf] = (distance_a + distance_b) / 2
-                    elif not np.isnan(distance_a):
-                        composite_distances[leaf] = distance_a
-                    elif not np.isnan(distance_b):
-                        composite_distances[leaf] = distance_b
-
-            ##### remove the sister pair from the condensed matrix
-            condensed_matrix = condensed_matrix.drop(index=[sister_pair[0], sister_pair[1]], columns=[sister_pair[0], sister_pair[1]])
-
-            ##### add the composite cluster to the condensed matrix
-            condensed_matrix = pd.concat([condensed_matrix, pd.Series(composite_distances, name=composite_cluster)], axis=1)
-            condensed_matrix.loc[composite_cluster] = pd.Series(composite_distances)
-            condensed_matrix.loc[composite_cluster, composite_cluster] = np.nan
-
-            ##### find the indices of the identified cluster in each partial matrix
-            for partial_matrix in partial_matrices:
-                if sister_pair[0] in partial_matrix.data.index and sister_pair[1] in partial_matrix.data.columns:
-                    row_index = partial_matrix.data.index.get_loc(sister_pair[0])
-                    col_index = partial_matrix.data.columns.get_loc(sister_pair[1])
-                    partial_matrix.data.iat[row_index, col_index] = np.nan
-                    partial_matrix.data.iat[col_index, row_index] = np.nan
-
-            ##### add the composite cluster and its distances to each partial matrix
-            for partial_matrix in partial_matrices:
-                if composite_cluster not in partial_matrix.data.index:
-                    partial_matrix.data = pd.concat([partial_matrix.data, pd.Series(np.nan, name=composite_cluster, index=partial_matrix.data.index)], axis=1)
-                if composite_cluster not in partial_matrix.data.columns:
-                    partial_matrix.data.loc[composite_cluster] = pd.Series(np.nan, index=partial_matrix.data.columns)
-
-                for leaf, distance in composite_distances.items():
-                    partial_matrix.data.loc[composite_cluster, leaf] = distance
-                    partial_matrix.data.loc[leaf, composite_cluster] = distance
-
-            ##### remove the clustered elements from the partial_matrices
-            for partial_matrix in partial_matrices:
-                partial_matrix.data = partial_matrix.data.drop([sister_pair[0], sister_pair[1]], axis=0)
-                partial_matrix.data = partial_matrix.data.drop([sister_pair[0], sister_pair[1]], axis=1)
-
-            ##### store cluster information in the clusters DataFrame
-            clusters.loc[len(clusters)] = [sister_pair[0], sister_pair[1], min_distance]
-
-        ##### export clusters as a CSV file
-        clusters.to_csv("clusters_and_pairwise_distances_list.csv", index=False)
-
-        ##### display the list of clusters and pairwise distances
-        #print("clusters_and_paiwise_distances:")
-        #print(clusters)
-
-        ##### convert clusters into a square pairwise distance matrix
-        df = pd.DataFrame(clusters, columns=['lineage_a', 'lineage_b', 'pairwise_distance'])
-
-        lineages = set(df['lineage_a'].str.split(',').sum() + df['lineage_b'].str.split(',').sum())
-        lineages = sorted(lineages)
-
-        final_pairwise_matrix = pd.DataFrame(np.nan, index=lineages, columns=lineages)
-
-        for _, row in df.iterrows():
-            lineage_a = row['lineage_a']
-            lineage_b = row['lineage_b']
-            distance = row['pairwise_distance']
-
-            lineages_a = lineage_a.split(',')
-            lineages_b = lineage_b.split(',')
-
-            for a in lineages_a:
-                for b in lineages_b:
-                    final_pairwise_matrix.at[a, b] = distance
-                    final_pairwise_matrix.at[b, a] = distance
-
-        final_pairwise_matrix = final_pairwise_matrix.astype(float)
-
-        ##### display the list of clusters and pairwise distances
-        #print("final_pairwise_matrix:")
-        #print(final_pairwise_matrix)
-
-        ##### export final pairwise matrix as a CSV file
-        final_pairwise_matrix.to_csv("final_pairwise_distance_matrix.csv", index=True, header=True, na_rep='NaN')
-
-        ####################################################################################################
-        ##### part04 #######################################################################################
-        ##### construct UPGMA supertree from final pairwise matrix #########################################
-        ####################################################################################################
-
-        ##### set diagonal of final pairwise matrix to 0
-        final_pairwise_matrix_no_nans = final_pairwise_matrix.copy()
-        np.fill_diagonal(final_pairwise_matrix_no_nans.values, 0)
-
-        ##### convert the upper triangular matrix to a condensed distance matrix
-        distances = squareform(final_pairwise_matrix_no_nans)
-        distances = distances / 2
-
-        ##### perform UPGMA clustering
-        upgma = hierarchy.linkage(distances, method='average')
-
-        ##### plot the dendrogram
-        plt.figure(figsize=(10, 8))
-        dendrogram = hierarchy.dendrogram(upgma, labels=final_pairwise_matrix_no_nans.columns.tolist())
-        plt.xlabel('Samples', fontsize=12)
-        plt.ylabel('Time', fontsize=12)
-        plt.title('Chrono-STA supertimetree', fontsize=14)
-        plt.tight_layout()
-        #plt.show()
-
-        ##### define function
-        def get_newick(node, parent_dist, leaf_names, newick=''):
-            """
-            convert scipy.cluster.hierarchy.to_tree()-output to Newick format.
-            :param node: output of scipy.cluster.hierarchy.to_tree()
-            :param parent_dist: distance of the parent node
-            :param leaf_names: list of leaf names
-            :param newick: leave empty, this variable is used in recursion.
-            :returns: tree in Newick format
-            """
-            if node.is_leaf():
-                return "%s:%.2f%s" % (leaf_names[node.id], parent_dist - node.dist, newick)
-            else:
-                if len(newick) > 0:
-                    newick = "):%.2f%s" % (parent_dist - node.dist, newick)
-                else:
-                    newick = ");"
-                newick = get_newick(node.get_left(), node.dist, leaf_names, newick=newick)
-                newick = get_newick(node.get_right(), node.dist, leaf_names, newick=",%s" % (newick))
-                newick = "(%s" % (newick)
-                return newick
-
-        ##### define leaf names from matrix columns
-        leaf_names = final_pairwise_matrix_no_nans.columns.tolist()
-
-        ##### convert the linkage matrix to a tree object
-        tree = hierarchy.to_tree(upgma)
-
-        ##### convert the tree to Newick format
-        newick_tree = get_newick(tree, tree.dist, leaf_names)
-        #print("UPGMA supertimetree from pairwise distance matrix")
-        #print(newick_tree)
-
-        ##### export the Newick tree as a file
-        with open('supertimetree_from_final_pairwise_distance_matrix.newick', 'w') as file:
-            file.write(newick_tree)
-
-        ##### load the tree from a file (if required)
-        #newick_tree = Phylo.read("supertimetree_from_final_pairwise_distance_matrix.newick", "newick")
-
-        ##### draw phylogenetic tree
-        #Phylo.draw(newick_tree, do_show=True)
-
-        ####################################################################################################
-        ##### make supertimetree ultrametric ###############################################################
-        ####################################################################################################
-
-        ##### import necessary R packages
-        phytools = importr("phytools")
-
-        ##### read the tree from the Newick file
-        tree = robjects.r['read.tree']("supertimetree_from_final_pairwise_distance_matrix.newick")
-
-        ##### ladderize the tree
-        ape = importr("ape")
-        ladderized_tree = ape.ladderize(tree)
-
-        ##### force the tree to be ultrametric using NNLS method
-        phy2 = phytools.force_ultrametric(ladderized_tree, method="nnls", message="FALSE")
-
-        ##### write the ultrametric tree to a new Newick file
-        robjects.r['write.tree'](phy2, file="chronosta_supertimetree.newick")
-
-        ##### read the Newick representation of the ultrametric tree
-        with open("chronosta_supertimetree.newick", "r") as f:
-            newick_tree2 = f.read()
-
-        ##### print chronosta supertimetree
-        print(f"Chrono-STA supertimetree: {newick_tree2}\n")
-
-        ##### generate pairwise distance matrix from chronosta_supertimetree.newick
-        def parse_newick_tree_from_file(newick_file):
-            """
-            Parse Newick tree from file
-            """
-            with open(newick_file, 'r') as f:
-                newick_str = f.readline().strip()
-            return Tree(newick_str)
-
-        def compute_pairwise_distances(tree):
-            """
-            compute pairwise distances between clusters
-            """
-            pairwise_distances = []
-            for leaf1 in tree:
-                for leaf2 in tree:
-                    if leaf1 != leaf2:
-                        distance = tree.get_distance(leaf1, leaf2)
-                        pairwise_distances.append((leaf1.name, leaf2.name, distance))
-            return pairwise_distances
-
-        def format_table(pairwise_distances):
-            """
-            format pairwise distances into a table
-            """
-            table = "lineage_a,lineage_b,pairwise_distance\n"
-            for pair in pairwise_distances:
-                table += f"{pair[0]},{pair[1]},{pair[2]}\n"
-            return table
-
-        def clusters_to_pairwise_matrix(clusters):
-            lineages = set()
-            for index, row in clusters.iterrows():
-                lineages.update(row['lineage_a'].split(','))
-                lineages.update(row['lineage_b'].split(','))
-
-            lineages = sorted(lineages)
-            chronosta_pairwise_matrix = pd.DataFrame(np.nan, index=lineages, columns=lineages)
-
-            for index, row in clusters.iterrows():
-                lineage_a = row['lineage_a']
-                lineage_b = row['lineage_b']
-                distance = row['pairwise_distance']
-
-                lineages_a = lineage_a.split(',')
-                lineages_b = lineage_b.split(',')
-
-                for a in lineages_a:
-                    for b in lineages_b:
-                        chronosta_pairwise_matrix.at[a, b] = distance
-                        chronosta_pairwise_matrix.at[b, a] = distance
-
-            return chronosta_pairwise_matrix
-
-        if __name__ == "__main__":
-
-            ##### parse Newick tree from file
-            newick_file = "chronosta_supertimetree.newick"
-            tree = parse_newick_tree_from_file(newick_file)
-
-            ##### compute pairwise distances between clusters
-            pairwise_distances = compute_pairwise_distances(tree)
-
-            ##### format pairwise distances into a table
-            table = format_table(pairwise_distances)
-            #print("Pairwise Distance Table:")
-            #print(table)
-
-            ##### convert clusters into a square pairwise distance matrix
-            df = pd.DataFrame(pairwise_distances, columns=['lineage_a', 'lineage_b', 'pairwise_distance'])
-            chronosta_pairwise_matrix = clusters_to_pairwise_matrix(df)
-
-            ##### display the pairwise distance matrix
-            #print("\Chrono-STA Pairwise Distance Matrix:")
-            #print(chronosta_pairwise_matrix)
-
-            ##### export final pairwise distance matrix as a CSV file
-            chronosta_pairwise_matrix.to_csv("chronosta_supertimetree_pairwise_distance_matrix.csv", index=True, header=True, na_rep='NaN')
-            
-    except Exception as e:
-        #warnings.warn(f"{str(e)}")
-        print("ERROR: An error has occurred. Ensure all timetrees and subsets of timetrees within the set have common tip labels with the full set.\n")
-
-if __name__ == "__main__":
-    main()
-
-####################################################################################################
-##### end of the algorithm #########################################################################
-####################################################################################################
+# ────────────────────────────────────────────────────────────────────────────────
+# helper classes
+# ────────────────────────────────────────────────────────────────────────────────
+
+class Matrix:
+    def __init__(self, data: pd.DataFrame):
+        self.data = data
+
+class ScratchMatrix:
+    def __init__(self, labels: List[str]):
+        self.matrix = pd.DataFrame(0.0, index=labels, columns=labels)
+        self.count = pd.DataFrame(0,   index=labels, columns=labels)
+
+    def add(self, partial: Matrix):
+        self.count  += ~partial.data.isna()
+        self.matrix += partial.data.fillna(0.0)
+
+    def mean(self):
+        self.matrix = self.matrix / self.count
+
+# ────────────────────────────────────────────────────────────────────────────────
+# build per‑tree pairwise distance matrices
+# ────────────────────────────────────────────────────────────────────────────────
+
+def read_trees() -> Tuple[List[pd.DataFrame], List[str]]:
+    files = [f for f in os.listdir('.') if f.endswith('.nwk')]
+    tips: set[str] = set()
+    for f in files:
+        for cl in Phylo.read(f, 'newick').get_terminals():
+            tips.add(cl.name)
+    tips = sorted(tips)
+
+    mats: List[pd.DataFrame] = []
+    for f in files:
+        t = Phylo.read(f, 'newick')
+        pairs = {(a.name, b.name): t.distance(a, b)
+                 for a in t.get_terminals() for b in t.get_terminals() if a != b}
+        df = pd.DataFrame.from_dict(pairs, orient='index', columns=['d'])
+        df[['r', 'c']] = pd.DataFrame(df.index.tolist(), index=df.index)
+        mat = df.pivot(index='r', columns='c', values='d')
+        mats.append(mat)
+    print("\nInput data:")
+    print(f"Number of trees in the set: {len(files)}")
+    print(f"Number of unique tip labels: {len(tips)}\n")
+    return mats, tips
+
+# ────────────────────────────────────────────────────────────────────────────────
+
+
+def expand(mats: List[pd.DataFrame], labels: List[str]) -> List[pd.DataFrame]:
+    out = []
+    for m in mats:
+        e = pd.DataFrame(np.nan, index=labels, columns=labels)
+        common_r = m.index.intersection(labels)
+        common_c = m.columns.intersection(labels)
+        e.loc[common_r, common_c] = m.loc[common_r, common_c]
+        out.append(e)
+    return out
+
+# ────────────────────────────────────────────────────────────────────────────────
+# weighted update helper
+# ────────────────────────────────────────────────────────────────────────────────
+
+def wavg(dik: float, djk: float, ni: int, nj: int) -> float:
+    if np.isnan(dik) and np.isnan(djk):
+        return np.nan
+    if np.isnan(dik):
+        return djk
+    if np.isnan(djk):
+        return dik
+    return (ni * dik + nj * djk) / (ni + nj)
+
+# ────────────────────────────────────────────────────────────────────────────────
+# parallel weighted clustering loop
+# ────────────────────────────────────────────────────────────────────────────────
+
+def build_supermatrix(expanded: List[pd.DataFrame], labels: List[str]) -> pd.DataFrame:
+    partials = [Matrix(m.copy()) for m in expanded]
+
+    # cluster sizes
+    csize: Dict[str, int] = {l: 1 for l in labels}
+
+    scratch = ScratchMatrix(labels)
+    for p in partials:
+        scratch.add(p)
+    scratch.mean()
+
+    condensed = scratch.matrix.copy()
+    clusters = []
+
+    while len(condensed) > 1:
+        md = np.nanmin(condensed.values)
+        i_idx, j_idx = np.where(condensed.values == md)
+        i = condensed.index[i_idx[0]]
+        j = condensed.columns[j_idx[0]]
+
+        clusters.append({'lineage_a': i, 'lineage_b': j, 'pairwise_distance': md})
+
+        comp = f"{i},{j}"
+        ni, nj = csize[i], csize[j]
+        comp_d: Dict[str, float] = {}
+        for k in condensed.index:
+            if k in (i, j):
+                continue
+            dik = condensed.at[i, k] if (i in condensed.index and k in condensed.columns) else np.nan
+            djk = condensed.at[j, k] if (j in condensed.index and k in condensed.columns) else np.nan
+            comp_d[k] = wavg(dik, djk, ni, nj)
+
+        # remove old rows/cols
+        condensed = condensed.drop(index=[i, j], columns=[i, j])
+        # add new col first (avoids empty‑frame error)
+        condensed[comp] = pd.Series(comp_d)
+        condensed.loc[comp] = pd.Series(comp_d)
+        condensed.at[comp, comp] = np.nan
+
+        # update cluster size dict
+        csize[comp] = ni + nj
+        del csize[i], csize[j]
+
+        # propagate into every partial matrix
+        for p in partials:
+            # set i‑j to NaN where present
+            if i in p.data.index and j in p.data.columns:
+                p.data.at[i, j] = p.data.at[j, i] = np.nan
+            # drop i and j
+            p.data = p.data.drop(index=[x for x in (i, j) if x in p.data.index], errors='ignore')
+            p.data = p.data.drop(columns=[x for x in (i, j) if x in p.data.columns], errors='ignore')
+            # ensure comp present (col first, then row)
+            if comp not in p.data.columns:
+                p.data[comp] = np.nan
+            if comp not in p.data.index:
+                p.data.loc[comp] = np.nan
+            # fill distances
+            for k, d in comp_d.items():
+                if k in p.data.columns:
+                    p.data.at[comp, k] = p.data.at[k, comp] = d
+
+    return pd.DataFrame(clusters)
+
+# ────────────────────────────────────────────────────────────────────────────────
+# convert clusters into pairwise matrix
+# ────────────────────────────────────────────────────────────────────────────────
+
+def clusters_to_matrix(cl: pd.DataFrame) -> pd.DataFrame:
+    taxa: set[str] = set()
+    for _, r in cl.iterrows():
+        taxa.update(r['lineage_a'].split(','))
+        taxa.update(r['lineage_b'].split(','))
+    taxa = sorted(taxa)
+    mat = pd.DataFrame(np.nan, index=taxa, columns=taxa)
+    for _, r in cl.iterrows():
+        a_l = r['lineage_a'].split(',')
+        b_l = r['lineage_b'].split(',')
+        d = r['pairwise_distance']
+        for a in a_l:
+            for b in b_l:
+                mat.at[a, b] = mat.at[b, a] = d
+    return mat
+
+# ────────────────────────────────────────────────────────────────────────────────
+# build and save final supertree
+# ────────────────────────────────────────────────────────────────────────────────
+
+def build_supertree(mat: pd.DataFrame, prefix: str = 'chronosta'):
+    m = mat.copy()
+    np.fill_diagonal(m.values, 0.0)
+    # Convert patristic tip‑to‑tip distances to divergence time (halve)
+    dist_vec = squareform(m) / 2.0  # patristic → divergence
+    link = hierarchy.linkage(dist_vec, method='average' )
+
+    plt.figure(figsize=(8, 6))
+    hierarchy.dendrogram(link, labels=m.index.tolist())
+    plt.tight_layout()
+    plt.savefig(f'{prefix}_dendrogram.png')
+
+    def to_newick(node, parent, names, nw=''):
+        if node.is_leaf():
+            return f"{names[node.id]}:{parent - node.dist:.6f}{nw}"
+        if nw:
+            nw = f"):{parent - node.dist:.6f}{nw}"
+        else:
+            nw = ');'
+        nw = to_newick(node.get_left(), node.dist, names, nw)
+        nw = to_newick(node.get_right(), node.dist, names, f",{nw}")
+        return f"({nw}"
+
+    tree = hierarchy.to_tree(link)
+    newick = to_newick(tree, tree.dist, m.index.tolist())
+    with open(f'{prefix}_supertree.newick', 'w') as fh:
+        fh.write(newick)
+
+    # Read and print the Newick tree to display it on the screen
+    with open(f'{prefix}_supertree.newick', 'r') as fh:
+        newick_content = fh.read()
+    print("\nChrono‑STA supertree:")
+    print(newick_content)
+
+# ────────────────────────────────────────────────────────────────────────────────
+# main
+# ────────────────────────────────────────────────────────────────────────────────
+
+if __name__ == '__main__':
+    partial_mats, tips = read_trees()
+    expanded_mats = expand(partial_mats, tips)
+    clusters_df = build_supermatrix(expanded_mats, tips)
+    clusters_df.to_csv('clusters_and_pairwise_distances_list.csv', index=False)
+
+    final_mat = clusters_to_matrix(clusters_df)
+    final_mat.to_csv('final_pairwise_distance_matrix.csv')
+
+    build_supertree(final_mat)
+
+# ────────────────────────────────────────────────────────────────────────────────
+# final notes
+# ────────────────────────────────────────────────────────────────────────────────
+
+    print('\n\nResults written to:')
+    print('List of clusters and pairwise distances: ' 'clusters_and_pairwise_distances_list.csv')
+    print('Final supermatrix: ' 'final_pairwise_distance_matrix.csv')
+    print('Chrono‑STA supertree in newick format: ' 'chronosta_supertree.newick')
+    print('Chrono‑STA supertree in png format: ' 'chronosta_dendrogram.png\n\n')
